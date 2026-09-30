@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Dulce Dina - Creador Mágico de Postres</title>
+  <title>Mi Dulce Dina - Pastelería Personalizada</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,20 +38,18 @@
     body { font-family: 'Quicksand', sans-serif; }
     h1, h2, h3, .font-title { font-family: 'Fredoka', sans-serif; }
     
+    .product-card {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px -10px rgba(244, 162, 184, 0.6);
+    }
+
     .dropzone-active {
       border-color: #f4a2b8 !important;
       background-color: #fce7f0 !important;
       transform: scale(1.01);
-    }
-    
-    .draggable-item {
-      cursor: grab;
-      user-select: none;
-      transition: all 0.2s ease;
-    }
-    .draggable-item:active {
-      cursor: grabbing;
-      opacity: 0.7;
     }
 
     @keyframes spin-slow {
@@ -66,272 +64,424 @@
 <body class="bg-dina-pinkLight text-dina-choco min-h-screen pb-12">
 
   <!-- Header -->
-  <header class="bg-dina-rose text-white py-5 shadow-md border-b-4 border-dina-gold">
-    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+  <header class="bg-dina-rose text-white py-5 shadow-md border-b-4 border-dina-gold sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 flex justify-between items-center gap-3">
       <div class="flex items-center gap-3">
         <div class="w-12 h-12 bg-white text-dina-rose rounded-full flex items-center justify-center text-2xl shadow-inner font-title font-bold">
-          <i class="fa-solid fa-cookie-bite"></i>
+          <i class="fa-solid fa-cake-candles"></i>
         </div>
         <div>
           <h1 class="text-3xl font-bold tracking-wide font-title text-white">Mi Dulce Dina</h1>
-          <p class="text-xs text-dina-pinkLight tracking-wider uppercase font-semibold">Armá tu postre y sumalo a tu bandeja</p>
+          <p class="text-xs text-dina-pinkLight tracking-wider uppercase font-semibold">Pastelería Artesanal Personalizada</p>
         </div>
       </div>
       
-      <div class="flex items-center gap-2">
-        <!-- Botón Desplegable Lista de Precios -->
-        <button id="btn-toggle-precios" class="text-xs bg-dina-gold hover:bg-amber-400 text-dina-choco font-bold px-4 py-2 rounded-full border border-amber-300 transition flex items-center gap-2 shadow">
-          <i class="fa-solid fa-list-check"></i> Ver Lista de Precios
-        </button>
-
-        <a href="https://www.instagram.com/midulcedina/" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2 rounded-full border border-white/40 transition flex items-center gap-2">
-          <i class="fa-brands fa-instagram text-sm"></i> @midulcedina
-        </a>
-      </div>
+      <a href="https://www.instagram.com/midulcedina/" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2 rounded-full border border-white/40 transition flex items-center gap-2">
+        <i class="fa-brands fa-instagram text-sm"></i> @midulcedina
+      </a>
     </div>
   </header>
 
-  <!-- Panel Desplegable de Lista de Precios -->
-  <div id="panel-precios" class="max-w-5xl mx-auto px-4 mt-4 hidden">
-    <div class="bg-white p-5 rounded-2xl shadow-lg border-2 border-dina-pinkSoft grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-      <div>
-        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Bases</h4>
-        <p>🌾 Tapitas Maizena: <strong>$800</strong></p>
-        <p>🍫 Masa Chocolate: <strong>$1.000</strong></p>
+  <main class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- PASO 1: SELECCIÓN DE PRODUCTO (5 TARJETAS GRANDES) -->
+    <section id="seccion-catalogo">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold font-title text-dina-choco mb-2">¿Qué te gustaría encargar hoy?</h2>
+        <p class="text-sm text-dina-choco/70 font-medium">Elegí una categoría para personalizar sus ingredientes y tamaño</p>
       </div>
-      <div>
-        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Rellenos</h4>
-        <p>🍯 Dulce de Leche: <strong>$500</strong></p>
-        <p>💥 Extra DDL Triple: <strong>$800</strong></p>
-      </div>
-      <div>
-        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Coberturas</h4>
-        <p>🖤 Chocolate Negro: <strong>$400</strong></p>
-        <p>💖 Glaseado Rosa: <strong>$350</strong></p>
-      </div>
-      <div>
-        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Toppings</h4>
-        <p>🥥 Coco Rallado: <strong>$200</strong></p>
-        <p>🌰 Nueces Crunchy: <strong>$350</strong></p>
-      </div>
-    </div>
-  </div>
 
-  <main class="max-w-5xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-    
-    <!-- Panel de Ingredientes (Izquierda) -->
-    <section class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft flex flex-col justify-between">
-      <div>
-        <h2 class="text-2xl font-bold text-dina-choco mb-1 font-title flex items-center gap-2">
-          <span>Ingredientes Disponibles</span>
-          <i class="fa-solid fa-hand-pointer text-dina-rose text-lg"></i>
-        </h2>
-        <p class="text-xs text-stone-500 mb-5">Arrastrá o hacé clic en el botón <strong>+</strong> para elegir ingredientes.</p>
-
-        <!-- Grupos de ingredientes -->
-        <div class="space-y-4">
-          
-          <!-- Masa / Base -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 1. Alfajor de Maicena -->
+        <div onclick="seleccionarProducto('alfajor')" class="product-card bg-white rounded-3xl p-4 border-2 border-dina-pinkSoft cursor-pointer shadow-md flex flex-col justify-between">
           <div>
-            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">1. Masa / Base</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="base" data-id="maizena" data-name="Tapitas de Maizena" data-price="800" data-weight="70g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>🌾 Tapitas Maizena</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
-              <div draggable="true" data-type="base" data-id="chocomasa" data-name="Masa de Chocolate" data-price="1000" data-weight="80g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>🍫 Masa Chocolate</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
+            <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-dina-pinkSoft">
+              <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Alfajores de Maicena">
             </div>
+            <h3 class="text-xl font-title font-bold text-dina-choco mb-1">Alfajores de Maicena</h3>
+            <p class="text-xs text-stone-500 mb-3">Elegí el tamaño de las tapitas y la cantidad exacta de dulce de leche.</p>
           </div>
-
-          <!-- Relleno -->
-          <div>
-            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">2. Relleno Principal</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="relleno" data-id="ddl_clasico" data-name="Dulce de Leche Clásico" data-price="500" data-weight="50g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>🍯 Dulce de Leche</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
-              <div draggable="true" data-type="relleno" data-id="ddl_extra" data-name="Bomba Extra DDL" data-price="800" data-weight="90g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>💥 Extra DDL Triple</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Cobertura -->
-          <div>
-            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">3. Cobertura / Baño</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="cobertura" data-id="choco_negro" data-name="Baño Chocolate Negro" data-price="400" data-weight="20g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>🖤 Chocolate Negro</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
-              <div draggable="true" data-type="cobertura" data-id="glaseado_rosa" data-name="Glaseado Rosa Dina" data-price="350" data-weight="15g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>💖 Glaseado Rosa</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
-            </div>
-          </div>
-
-          <!-- Toppings -->
-          <div>
-            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">4. Bordes / Toppings</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="topping" data-id="coco" data-name="Coco Rallado Fino" data-price="200" data-weight="10g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>🥥 Coco Rallado</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
-              <div draggable="true" data-type="topping" data-id="nueces" data-name="Nueces Picadas" data-price="350" data-weight="15g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
-                <span>🌰 Nueces Crunchy</span>
-                <i class="fa-solid fa-plus text-dina-rose"></i>
-              </div>
-            </div>
-          </div>
-
+          <button class="w-full bg-dina-pinkSoft hover:bg-dina-rose hover:text-white text-dina-choco font-title font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+            Personalizar Alfajor <i class="fa-solid fa-arrow-right"></i>
+          </button>
         </div>
-      </div>
 
-      <!-- Resumen Unidad Actual -->
-      <div class="mt-5 p-4 bg-dina-pinkSoft/60 rounded-2xl border border-dina-pinkSoft flex justify-between items-center">
-        <div>
-          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Peso x Unidad</p>
-          <p id="peso-display" class="text-lg font-title font-bold text-dina-choco">0g</p>
+        <!-- 2. Brownies -->
+        <div onclick="seleccionarProducto('brownie')" class="product-card bg-white rounded-3xl p-4 border-2 border-dina-pinkSoft cursor-pointer shadow-md flex flex-col justify-between">
+          <div>
+            <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-dina-pinkSoft">
+              <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Brownies">
+            </div>
+            <h3 class="text-xl font-title font-bold text-dina-choco mb-1">Brownies Húmedos</h3>
+            <p class="text-xs text-stone-500 mb-3">Sumale toppings de nueces, hilos de chocolate blanco o dulce de leche.</p>
+          </div>
+          <button class="w-full bg-dina-pinkSoft hover:bg-dina-rose hover:text-white text-dina-choco font-title font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+            Personalizar Brownie <i class="fa-solid fa-arrow-right"></i>
+          </button>
         </div>
-        <div class="text-right">
-          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Precio x Unidad</p>
-          <p id="precio-display" class="text-2xl font-title font-extrabold text-dina-rose">$0</p>
-        </div>
-      </div>
 
+        <!-- 3. Lemonies -->
+        <div onclick="seleccionarProducto('lemonie')" class="product-card bg-white rounded-3xl p-4 border-2 border-dina-pinkSoft cursor-pointer shadow-md flex flex-col justify-between">
+          <div>
+            <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-dina-pinkSoft">
+              <img src="https://images.unsplash.com/photo-1519869325930-281384150729?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Lemonies">
+            </div>
+            <h3 class="text-xl font-title font-bold text-dina-choco mb-1">Lemonies Cítricos</h3>
+            <p class="text-xs text-stone-500 mb-3">Elegí la cantidad de glaseado dulce de limón y el tamaño de los bocados.</p>
+          </div>
+          <button class="w-full bg-dina-pinkSoft hover:bg-dina-rose hover:text-white text-dina-choco font-title font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+            Personalizar Lemonie <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- 4. Tortas -->
+        <div onclick="seleccionarProducto('torta')" class="product-card bg-white rounded-3xl p-4 border-2 border-dina-pinkSoft cursor-pointer shadow-md flex flex-col justify-between">
+          <div>
+            <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-dina-pinkSoft">
+              <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Tortas">
+            </div>
+            <h3 class="text-xl font-title font-bold text-dina-choco mb-1">Tortas Especiales</h3>
+            <p class="text-xs text-stone-500 mb-3">Armá la torta entera con capas de bizcochuelo, rellenos y cobertura decorativa.</p>
+          </div>
+          <button class="w-full bg-dina-pinkSoft hover:bg-dina-rose hover:text-white text-dina-choco font-title font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+            Armar Torta <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- 5. Crea tu propio postre (CON VARITA MÁGICA) -->
+        <div onclick="seleccionarProducto('custom')" class="product-card bg-gradient-to-br from-white to-dina-pinkSoft rounded-3xl p-4 border-2 border-dina-rose cursor-pointer shadow-lg flex flex-col justify-between sm:col-span-2 lg:col-span-2">
+          <div class="flex flex-col sm:flex-row gap-4 items-center">
+            <div class="w-full sm:w-1/2 h-44 rounded-2xl overflow-hidden border-2 border-dina-rose relative">
+              <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="Postre Custom">
+              <div class="absolute top-2 right-2 bg-dina-rose text-white w-9 h-9 rounded-full flex items-center justify-center text-lg shadow">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+            </div>
+            <div class="sm:w-1/2">
+              <div class="flex items-center gap-2 mb-1">
+                <i class="fa-solid fa-wand-magic-sparkles text-dina-rose text-xl"></i>
+                <h3 class="text-2xl font-title font-bold text-dina-choco">Crea tu propio postre</h3>
+              </div>
+              <p class="text-xs text-dina-choco/80 mb-4 leading-relaxed">
+                ¡Libertad total! Combiná cualquier tipo de masa, relleno múltiple, coberturas especiales y toppings mágicos como se te ocurra.
+              </p>
+              <button class="w-full bg-dina-rose hover:bg-pink-500 text-white font-title font-bold py-3 rounded-xl transition flex items-center justify-center gap-2 text-sm shadow">
+                Empezar desde Cero <i class="fa-solid fa-sparkles"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
 
-    <!-- Zona de Horneado IA / Diseñador (Derecha) -->
-    <section class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft flex flex-col justify-between">
-      <div>
-        <div class="flex justify-between items-center mb-3">
-          <h2 class="text-2xl font-bold text-dina-choco font-title">Diseñá tu Receta</h2>
-          <span class="text-xs bg-dina-pinkSoft text-dina-choco font-bold px-3 py-1 rounded-full">Zona de Horneado</span>
+    <!-- PASO 2: PANEL CONFIGURADOR INTERACTIVO (Oculto al inicio) -->
+    <section id="seccion-configurador" class="hidden">
+      
+      <!-- Botón Volver al Catálogo -->
+      <button onclick="volverAlCatalogo()" class="mb-6 text-xs bg-white hover:bg-dina-pinkSoft text-dina-choco font-bold px-4 py-2 rounded-full border border-dina-pinkSoft transition flex items-center gap-2 shadow-sm">
+        <i class="fa-solid fa-chevron-left"></i> Volver a cambiar de producto
+      </button>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Panel Izquierdo: Opciones del Producto Elegido -->
+        <div class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft flex flex-col justify-between">
+          <div>
+            <h2 id="titulo-producto-actual" class="text-2xl font-bold font-title text-dina-choco mb-1">Personalizando</h2>
+            <p class="text-xs text-stone-500 mb-5">Hacé clic o arrastrá las opciones hacia la zona de horneado.</p>
+
+            <div id="contenedor-opciones" class="space-y-4">
+              <!-- Se completa dinámicamente según la categoría elegida -->
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 bg-dina-pinkSoft/60 rounded-2xl border border-dina-pinkSoft flex justify-between items-center">
+            <div>
+              <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Peso x Unidad</p>
+              <p id="peso-display" class="text-lg font-title font-bold text-dina-choco">0g</p>
+            </div>
+            <div class="text-right">
+              <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Precio x Unidad</p>
+              <p id="precio-display" class="text-2xl font-title font-extrabold text-dina-rose">$0</p>
+            </div>
+          </div>
         </div>
 
-        <!-- Dropzone de Ingredientes Selección -->
-        <div id="dropzone" class="w-full min-h-[90px] bg-dina-cream rounded-2xl border-2 border-dashed border-dina-rose/50 p-2.5 mb-3 transition-all duration-200 flex flex-wrap gap-1.5 items-center justify-start">
-          <p id="dropzone-placeholder" class="text-xs text-dina-choco/50 text-center w-full py-3 font-medium pointer-events-none">
-            <i class="fa-solid fa-cloud-arrow-down text-base block mb-1 text-dina-rose"></i>
-            Arrastrá o elegí los ingredientes para armar la receta...
+        <!-- Panel Derecho: Visor de IA y Cantidades -->
+        <div class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="text-2xl font-bold font-title text-dina-choco">Tu Receta</h3>
+              <span class="text-xs bg-dina-pinkSoft text-dina-choco font-bold px-3 py-1 rounded-full">Zona de Horneado</span>
+            </div>
+
+            <!-- Dropzone -->
+            <div id="dropzone" class="w-full min-h-[90px] bg-dina-cream rounded-2xl border-2 border-dashed border-dina-rose/50 p-2.5 mb-3 transition-all duration-200 flex flex-wrap gap-1.5 items-center justify-start">
+              <p id="dropzone-placeholder" class="text-xs text-dina-choco/50 text-center w-full py-3 font-medium pointer-events-none">
+                <i class="fa-solid fa-cloud-arrow-down text-base block mb-1 text-dina-rose"></i>
+                Elegí ingredientes para armar la receta...
+              </p>
+            </div>
+
+            <!-- Visor IA -->
+            <div class="relative w-full aspect-square bg-dina-chocoDark rounded-2xl overflow-hidden shadow-inner border-4 border-dina-pinkSoft flex items-center justify-center">
+              <div id="loader" class="absolute inset-0 bg-dina-chocoDark/90 z-10 flex flex-col items-center justify-center gap-3 text-white transition-opacity duration-300 opacity-0 pointer-events-none">
+                <i class="fa-solid fa-cookie text-5xl text-dina-rose animate-spin-slow"></i>
+                <p class="text-sm font-title font-bold animate-pulse text-dina-pinkSoft">Horneando tu diseño con IA...</p>
+              </div>
+
+              <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-dina-pinkSoft/60 p-6 text-center">
+                <i class="fa-solid fa-wand-magic-sparkles text-4xl mb-2 text-dina-rose/50"></i>
+                <p class="text-sm font-title">Agregá opciones para ver la vista previa en foto</p>
+              </div>
+
+              <img id="ia-image" src="" alt="Postre personalizado" class="w-full h-full object-cover transition-opacity duration-500 opacity-0">
+            </div>
+
+            <!-- Cantidad y Agregar a la Bandeja -->
+            <div class="mt-4 p-3 bg-dina-pinkSoft/40 rounded-2xl border border-dina-pinkSoft flex items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold text-dina-choco">Cantidad:</span>
+                <div class="flex items-center bg-white border border-dina-pinkSoft rounded-xl overflow-hidden">
+                  <button id="btn-menos" class="px-3 py-1 font-bold text-dina-rose hover:bg-dina-pinkSoft">-</button>
+                  <span id="cantidad-display" class="px-3 py-1 font-bold text-sm text-dina-choco">1</span>
+                  <button id="btn-mas" class="px-3 py-1 font-bold text-dina-rose hover:bg-dina-pinkSoft">+</button>
+                </div>
+              </div>
+
+              <button id="btn-agregar-bandeja" disabled class="flex-1 bg-dina-rose hover:bg-pink-500 disabled:opacity-40 text-white font-title text-sm font-bold py-2.5 px-3 rounded-xl shadow transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-cart-plus"></i> Agregar a la Bandeja
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BANDEJA DE PEDIDOS ACUMULATIVA (CARRITO) -->
+    <section class="mt-8">
+      <div class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft">
+        <div class="flex justify-between items-center mb-4 pb-2 border-b-2 border-dina-pinkSoft">
+          <h3 class="text-2xl font-title font-bold text-dina-choco flex items-center gap-2">
+            <i class="fa-solid fa-basket-shopping text-dina-rose"></i> Tu Bandeja de Pedidos
+          </h3>
+          <span id="total-bandeja" class="text-2xl font-title font-extrabold text-dina-rose">$0</span>
+        </div>
+
+        <div id="bandeja-lista" class="space-y-3 min-h-[60px] flex flex-col justify-center">
+          <p id="bandeja-vacia" class="text-xs text-dina-choco/50 text-center py-4 font-medium">
+            Aún no agregaste postres. Seleccioná un producto arriba, armalo a tu gusto y presioná <strong>"Agregar a la Bandeja"</strong>.
           </p>
         </div>
 
-        <!-- Visor Fotográfico con IA -->
-        <div class="relative w-full aspect-square bg-dina-chocoDark rounded-2xl overflow-hidden shadow-inner border-4 border-dina-pinkSoft flex items-center justify-center">
-          
-          <div id="loader" class="absolute inset-0 bg-dina-chocoDark/90 z-10 flex flex-col items-center justify-center gap-3 text-white transition-opacity duration-300 opacity-0 pointer-events-none">
-            <i class="fa-solid fa-cookie text-5xl text-dina-rose animate-spin-slow"></i>
-            <p class="text-sm font-title font-bold animate-pulse text-dina-pinkSoft">Horneando tu diseño con IA...</p>
-          </div>
-
-          <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-dina-pinkSoft/60 p-6 text-center">
-            <i class="fa-solid fa-wand-magic-sparkles text-4xl mb-2 text-dina-rose/50"></i>
-            <p class="text-sm font-title">Agregá al menos un ingrediente para ver el postre en la foto</p>
-          </div>
-
-          <div id="error-state" class="absolute inset-0 bg-dina-chocoDark z-20 hidden flex-col items-center justify-center text-white p-6 text-center gap-3">
-            <i class="fa-solid fa-triangle-exclamation text-3xl text-dina-gold"></i>
-            <p class="text-xs text-dina-pinkSoft">Un pequeño parpadeo en el servidor de IA.</p>
-            <button id="btn-reintentar" class="text-xs bg-dina-rose hover:bg-pink-500 text-white font-bold px-4 py-2 rounded-xl transition">
-              Reintentar Render
-            </button>
-          </div>
-
-          <img id="ia-image" src="" alt="Postre personalizado" class="w-full h-full object-cover transition-opacity duration-500 opacity-0">
-        </div>
-
-        <!-- Controles de Cantidad y Agregar a Bandeja -->
-        <div class="mt-4 p-3 bg-dina-pinkSoft/40 rounded-2xl border border-dina-pinkSoft flex items-center justify-between gap-3">
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold text-dina-choco">Cantidad:</span>
-            <div class="flex items-center bg-white border border-dina-pinkSoft rounded-xl overflow-hidden">
-              <button id="btn-menos" class="px-3 py-1 font-bold text-dina-rose hover:bg-dina-pinkSoft">-</button>
-              <span id="cantidad-display" class="px-3 py-1 font-bold text-sm text-dina-choco">1</span>
-              <button id="btn-mas" class="px-3 py-1 font-bold text-dina-rose hover:bg-dina-pinkSoft">+</button>
-            </div>
-          </div>
-
-          <button id="btn-agregar-bandeja" disabled class="flex-1 bg-dina-rose hover:bg-pink-500 disabled:opacity-40 text-white font-title text-sm font-bold py-2.5 px-3 rounded-xl shadow transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-cart-plus"></i> Agregar a la Bandeja
-          </button>
-        </div>
+        <button id="btn-whatsapp-final" disabled class="w-full mt-6 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 text-white font-title text-lg font-bold py-4 px-4 rounded-2xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-2xl"></i> Enviar Pedido Completo por WhatsApp
+        </button>
       </div>
     </section>
 
   </main>
 
-  <!-- Sección de Bandeja de Pedidos (Carrito Acumulativo) -->
-  <section class="max-w-5xl mx-auto px-4 mt-2">
-    <div class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft">
-      <div class="flex justify-between items-center mb-4 pb-2 border-b-2 border-dina-pinkSoft">
-        <h3 class="text-2xl font-title font-bold text-dina-choco flex items-center gap-2">
-          <i class="fa-solid fa-basket-shopping text-dina-rose"></i> Tu Bandeja de Pedidos
-        </h3>
-        <span id="total-bandeja" class="text-2xl font-title font-extrabold text-dina-rose">$0</span>
-      </div>
-
-      <!-- Contenedor Lista de Pedidos -->
-      <div id="bandeja-lista" class="space-y-3 min-h-[60px] flex flex-col justify-center">
-        <p id="bandeja-vacia" class="text-xs text-dina-choco/50 text-center py-4 font-medium">
-          Aún no agregaste postres a la bandeja. Armá una receta arriba y presioná <strong>"Agregar a la Bandeja"</strong>.
-        </p>
-      </div>
-
-      <!-- Botón WhatsApp Final -->
-      <button id="btn-whatsapp-final" disabled class="w-full mt-6 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 text-white font-title text-lg font-bold py-4 px-4 rounded-2xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
-        <i class="fa-brands fa-whatsapp text-2xl"></i> Enviar Pedido Completo por WhatsApp
-      </button>
-    </div>
-  </section>
-
-  <!-- Lógica en JavaScript -->
   <script>
-    // Estado de la Receta Actual
+    // Catálogo de opciones según producto seleccionado
+    const opcionesPorProducto = {
+      alfajor: {
+        titulo: "Personalizando: Alfajor de Maicena",
+        basePrompt: "Macro studio food photography of authentic Argentine maizena alfajor sandwich cookie with thick dulce de leche filling",
+        grupos: [
+          {
+            nombre: "1. Tamaño de las Tapitas",
+            items: [
+              { id: "tapita_mediana", name: "Tapitas Clásicas (8cm)", price: 800, weight: 80, prompt: "two round pale yellow cornstarch cookies" },
+              { id: "tapita_xl", name: "Tapitas XL / Tarta (12cm)", price: 1500, weight: 160, prompt: "large thick pale yellow cornstarch cookies" }
+            ]
+          },
+          {
+            nombre: "2. Cantidad de Dulce de Leche",
+            items: [
+              { id: "ddl_estandar", name: "Dulce de Leche Estándar", price: 400, weight: 50, prompt: "thick layer of caramel dulce de leche filling" },
+              { id: "ddl_extra", name: "Extra Dulce de Leche Abundante", price: 700, weight: 90, prompt: "huge extra thick overflowing caramel dulce de leche layer" }
+            ]
+          },
+          {
+            nombre: "3. Bordes y Toppings",
+            items: [
+              { id: "coco", name: "Coco Rallado Fino", price: 200, weight: 10, prompt: "edges rolled in fine white coconut flakes" },
+              { id: "nueces", name: "Nueces Picadas", price: 350, weight: 15, prompt: "edges sprinkled with crushed walnut pieces" }
+            ]
+          }
+        ]
+      },
+      brownie: {
+        titulo: "Personalizando: Brownie Húmedo",
+        basePrompt: "Macro studio food photography of a dense dark chocolate brownie square slice",
+        grupos: [
+          {
+            nombre: "1. Porción",
+            items: [
+              { id: "brownie_cuadrado", name: "Porción Individual (8x8cm)", price: 1200, weight: 120, prompt: "rich fudgy chocolate brownie square" },
+              { id: "brownie_xl", name: "Porción Doble XL (12x12cm)", price: 2100, weight: 220, prompt: "large thick fudgy dark chocolate brownie" }
+            ]
+          },
+          {
+            nombre: "2. Toppings y Hilos",
+            items: [
+              { id: "topping_nueces", name: "Nueces Crunchy", price: 350, weight: 20, prompt: "topped with crunchy roasted walnut halves" },
+              { id: "topping_choco_blanco", name: "Hilos de Chocolate Blanco", price: 300, weight: 15, prompt: "drizzled with melted white chocolate glaze lines" },
+              { id: "topping_ddl", name: "Capa de Dulce de Leche", price: 450, weight: 40, prompt: "topped with smooth thick caramel dulce de leche spread" }
+            ]
+          }
+        ]
+      },
+      lemonie: {
+        titulo: "Personalizando: Lemonie Cítrico",
+        basePrompt: "Macro food photography of a lemon blondie bar square dessert",
+        grupos: [
+          {
+            nombre: "1. Tamaño del Cuadradito",
+            items: [
+              { id: "lemonie_mediano", name: "Cuadradito Mediano", price: 1000, weight: 90, prompt: "moist yellow lemon blondie bar square" },
+              { id: "lemonie_grande", name: "Cuadradito XL", price: 1700, weight: 170, prompt: "large thick lemon blondie bar square" }
+            ]
+          },
+          {
+            nombre: "2. Glaseado de Limón",
+            items: [
+              { id: "glaseado_ligero", name: "Glaseado Sutil", price: 300, weight: 15, prompt: "light white lemon sugar glaze drip" },
+              { id: "glaseado_abundante", name: "Glaseado Abundante Cítrico", price: 500, weight: 35, prompt: "thick opaque glossy white lemon icing glaze on top" }
+            ]
+          }
+        ]
+      },
+      torta: {
+        titulo: "Personalizando: Torta Especial",
+        basePrompt: "Macro studio photography of a round layered celebratory cake slice",
+        grupos: [
+          {
+            nombre: "1. Bizcochuelo Base",
+            items: [
+              { id: "bizco_vainilla", name: "Vainilla Esponjosa", price: 3500, weight: 400, prompt: "layered fluffy vanilla sponge cake" },
+              { id: "bizco_chocolate", name: "Chocolate Intenso", price: 4000, weight: 450, prompt: "layered rich dark chocolate cocoa cake" }
+            ]
+          },
+          {
+            nombre: "2. Relleno",
+            items: [
+              { id: "relleno_ddl", name: "Dulce de Leche Pastelero", price: 1200, weight: 150, prompt: "thick dulce de leche caramel filling layer" },
+              { id: "relleno_crema", name: "Crema Chantilly / Frutillas", price: 1500, weight: 150, prompt: "whipped cream filling layer" }
+            ]
+          },
+          {
+            nombre: "3. Cobertura Exterior",
+            items: [
+              { id: "cobertura_rosa", name: "Buttercream Rosa Dina", price: 1500, weight: 100, prompt: "covered with smooth pastel pink buttercream frosting" },
+              { id: "cobertura_ganache", name: "Ganache Chocolate Negro", price: 1800, weight: 120, prompt: "covered with glossy dark chocolate ganache" }
+            ]
+          }
+        ]
+      },
+      custom: {
+        titulo: "Crea tu propio postre (Libre)",
+        basePrompt: "Gourmet artisanal custom pastry dessert presentation",
+        grupos: [
+          {
+            nombre: "1. Base",
+            items: [
+              { id: "maizena", name: "Tapitas Maizena", price: 800, weight: 80, prompt: "cornstarch cookies" },
+              { id: "chocomasa", name: "Masa Chocolate", price: 1000, weight: 80, prompt: "chocolate cocoa cookies" }
+            ]
+          },
+          {
+            nombre: "2. Relleno",
+            items: [
+              { id: "ddl", name: "Dulce de Leche", price: 500, weight: 50, prompt: "caramel dulce de leche" }
+            ]
+          },
+          {
+            nombre: "3. Coberturas y Toppings",
+            items: [
+              { id: "glaseado_rosa", name: "Glaseado Rosa", price: 350, weight: 15, prompt: "pink pastel glaze" },
+              { id: "nueces", name: "Nueces", price: 350, weight: 15, prompt: "crushed walnuts" }
+            ]
+          }
+        ]
+      }
+    };
+
+    // Estado local
+    let productoActualKey = 'alfajor';
     const receta = new Map();
     let cantidadActual = 1;
-
-    // Estado de la Bandeja Global (Carrito)
     const bandeja = [];
 
     // Elementos DOM
+    const seccionCatalogo = document.getElementById('seccion-catalogo');
+    const seccionConfigurador = document.getElementById('seccion-configurador');
+    const tituloProductoActual = document.getElementById('titulo-producto-actual');
+    const contenedorOpciones = document.getElementById('contenedor-opciones');
+
     const dropzone = document.getElementById('dropzone');
     const placeholder = document.getElementById('dropzone-placeholder');
     const pesoDisplay = document.getElementById('peso-display');
     const precioDisplay = document.getElementById('precio-display');
     const cantidadDisplay = document.getElementById('cantidad-display');
-    
+
     const iaImage = document.getElementById('ia-image');
     const loader = document.getElementById('loader');
     const emptyState = document.getElementById('empty-state');
-    const errorState = document.getElementById('error-state');
-    
+
     const btnMenos = document.getElementById('btn-menos');
     const btnMas = document.getElementById('btn-mas');
     const btnAgregarBandeja = document.getElementById('btn-agregar-bandeja');
-    const btnReintentar = document.getElementById('btn-reintentar');
-    
+
     const bandejaLista = document.getElementById('bandeja-lista');
     const bandejaVacia = document.getElementById('bandeja-vacia');
     const totalBandejaDisplay = document.getElementById('total-bandeja');
     const btnWhatsappFinal = document.getElementById('btn-whatsapp-final');
 
-    const btnTogglePrecios = document.getElementById('btn-toggle-precios');
-    const panelPrecios = document.getElementById('panel-precios');
+    function seleccionarProducto(key) {
+      productoActualKey = key;
+      receta.clear();
+      cantidadActual = 1;
+      cantidadDisplay.textContent = 1;
 
-    // Toggle Lista Precios
-    btnTogglePrecios.addEventListener('click', () => {
-      panelPrecios.classList.toggle('hidden');
-    });
+      const prodConfig = opcionesPorProducto[key];
+      tituloProductoActual.textContent = prodConfig.titulo;
 
-    // Control de Cantidades
+      // Renderizar Opciones de este Producto
+      contenedorOpciones.innerHTML = '';
+      prodConfig.grupos.forEach(grupo => {
+        const divGrupo = document.createElement('div');
+        divGrupo.innerHTML = `<h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">${grupo.nombre}</h3>`;
+        
+        const gridItems = document.createElement('div');
+        gridItems.className = 'grid grid-cols-1 sm:grid-cols-2 gap-2';
+
+        grupo.items.forEach(item => {
+          const btn = document.createElement('div');
+          btn.className = 'draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose cursor-pointer flex justify-between items-center text-xs font-bold shadow-sm';
+          btn.innerHTML = `<span>${item.name}</span> <i class="fa-solid fa-plus text-dina-rose"></i>`;
+          btn.onclick = () => agregarIngrediente(item);
+          gridItems.appendChild(btn);
+        });
+
+        divGrupo.appendChild(gridItems);
+        contenedorOpciones.appendChild(divGrupo);
+      });
+
+      seccionCatalogo.classList.add('hidden');
+      seccionConfigurador.classList.remove('hidden');
+      actualizarUI();
+    }
+
+    function volverAlCatalogo() {
+      seccionConfigurador.classList.add('hidden');
+      seccionCatalogo.classList.remove('hidden');
+    }
+
     btnMenos.addEventListener('click', () => {
       if (cantidadActual > 1) {
         cantidadActual--;
@@ -344,50 +494,9 @@
       cantidadDisplay.textContent = cantidadActual;
     });
 
-    // Drag & Drop
-    document.querySelectorAll('.draggable-item').forEach(item => {
-      item.addEventListener('dragstart', (e) => {
-        const itemData = {
-          id: item.dataset.id,
-          name: item.dataset.name,
-          price: parseInt(item.dataset.price),
-          weight: parseInt(item.dataset.weight)
-        };
-        e.dataTransfer.setData('text/plain', JSON.stringify(itemData));
-      });
-
-      item.addEventListener('click', () => {
-        const itemData = {
-          id: item.dataset.id,
-          name: item.dataset.name,
-          price: parseInt(item.dataset.price),
-          weight: parseInt(item.dataset.weight)
-        };
-        agregarIngrediente(itemData);
-      });
-    });
-
-    dropzone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropzone.classList.add('dropzone-active');
-    });
-
-    dropzone.addEventListener('dragleave', () => {
-      dropzone.classList.remove('dropzone-active');
-    });
-
-    dropzone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropzone.classList.remove('dropzone-active');
-      try {
-        const itemData = JSON.parse(e.dataTransfer.getData('text/plain'));
-        agregarIngrediente(itemData);
-      } catch(err) {}
-    });
-
-    function agregarIngrediente(ing) {
-      if (!receta.has(ing.id)) {
-        receta.set(ing.id, ing);
+    function agregarIngrediente(item) {
+      if (!receta.has(item.id)) {
+        receta.set(item.id, item);
         actualizarUI();
         generarFotoIA();
       }
@@ -404,14 +513,14 @@
       }
     }
 
-    function calcularPreciosUnidad() {
-      let pesoTotal = 0;
-      let precioTotal = 0;
-      receta.forEach((ing) => {
-        pesoTotal += ing.weight;
-        precioTotal += ing.price;
+    function calcularTotalesUnidad() {
+      let peso = 0;
+      let precio = 0;
+      receta.forEach(item => {
+        peso += item.weight;
+        precio += item.price;
       });
-      return { pesoTotal, precioTotal };
+      return { peso, precio };
     }
 
     function actualizarUI() {
@@ -426,63 +535,40 @@
 
       document.querySelectorAll('.chip-item').forEach(el => el.remove());
 
-      const { pesoTotal, precioTotal } = calcularPreciosUnidad();
+      const { peso, precio } = calcularTotalesUnidad();
 
-      receta.forEach((ing) => {
+      receta.forEach(item => {
         const chip = document.createElement('div');
         chip.className = 'chip-item bg-dina-pinkSoft border border-dina-rose text-dina-choco font-bold text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm';
         chip.innerHTML = `
-          <span>${ing.name}</span>
-          <button type="button" onclick="removerIngrediente('${ing.id}')" class="text-dina-rose hover:text-red-500 font-extrabold ml-0.5">
+          <span>${item.name}</span>
+          <button type="button" onclick="removerIngrediente('${item.id}')" class="text-dina-rose hover:text-red-500 font-extrabold ml-0.5">
             <i class="fa-solid fa-xmark"></i>
           </button>
         `;
         dropzone.appendChild(chip);
       });
 
-      pesoDisplay.textContent = pesoTotal + 'g';
-      precioDisplay.textContent = '$' + precioTotal.toLocaleString('es-AR');
-    }
-
-    // Motor de Prompt Estricto
-    function construirPromptGourmet() {
-      const tieneChocoNegro = receta.has('choco_negro');
-      const tieneGlaseado = receta.has('glaseado_rosa');
-      const tieneChocoMasa = receta.has('chocomasa');
-      const tieneCoco = receta.has('coco');
-      const tieneNueces = receta.has('nueces');
-
-      let promptBase = "";
-
-      if (tieneChocoNegro) {
-        promptBase = "Macro close-up photography of a gourmet chocolate covered alfajor cookie on a plate. Dark chocolate dipped round sandwich cookie, thick dulce de leche caramel filling visible on side layer";
-      } else if (tieneGlaseado) {
-        promptBase = "Macro photography of an artisanal round sandwich cookie covered in smooth pastel pink icing glaze";
-      } else if (tieneChocoMasa) {
-        promptBase = "Macro photography of a double dark cocoa chocolate sandwich cookie filled with rich brown dulce de leche caramel";
-      } else {
-        promptBase = "Macro studio food photography of an authentic Argentine alfajor de maizena. Two round pale yellow cornstarch cookies sandwiched with a generous thick layer of caramel dulce de leche filling in the middle";
-      }
-
-      if (tieneCoco && !tieneChocoNegro) {
-        promptBase += ", edges completely rolled in fine white shredded coconut flakes";
-      }
-      if (tieneNueces) {
-        promptBase += ", sprinkled with crushed walnut pieces on top";
-      }
-
-      promptBase += ". High resolution, professional bakery catalog photo, sharp focus, studio presentation, no gelatin, no pudding.";
-      return promptBase;
+      pesoDisplay.textContent = peso + 'g';
+      precioDisplay.textContent = '$' + precio.toLocaleString('es-AR');
     }
 
     function generarFotoIA() {
       if (receta.size === 0) return;
 
       loader.classList.remove('opacity-0', 'pointer-events-none');
-      errorState.classList.add('hidden');
       iaImage.classList.add('opacity-0');
 
-      const promptStr = construirPromptGourmet();
+      const configProd = opcionesPorProducto[productoActualKey];
+      let promptParts = [configProd.basePrompt];
+
+      receta.forEach(item => {
+        if (item.prompt) promptParts.push(item.prompt);
+      });
+
+      promptParts.push("High resolution, professional bakery catalog photo, sharp focus, studio lighting, no gelatin, no pudding");
+
+      const promptStr = promptParts.join(", ");
       const seed = Math.floor(Math.random() * 999999);
       const urlAPI = `https://image.pollinations.ai/prompt/${encodeURIComponent(promptStr)}?width=600&height=600&seed=${seed}&nologo=true`;
 
@@ -495,41 +581,31 @@
 
       iaImage.onerror = () => {
         loader.classList.add('opacity-0', 'pointer-events-none');
-        errorState.classList.remove('hidden');
-        errorState.classList.add('flex');
       };
     }
-
-    btnReintentar.addEventListener('click', generarFotoIA);
 
     // Agregar Pedido a la Bandeja
     btnAgregarBandeja.addEventListener('click', () => {
       if (receta.size === 0) return;
 
-      const { pesoTotal, precioTotal } = calcularPreciosUnidad();
-      const ingredientesNombres = [];
-      receta.forEach(ing => ingredientesNombres.push(ing.name));
+      const { peso, precio } = calcularTotalesUnidad();
+      const ingredientes = [];
+      receta.forEach(item => ingredientes.push(item.name));
 
       const itemBandeja = {
-        id: Date.now(),
-        ingredientes: ingredientesNombres,
+        producto: opcionesPorProducto[productoActualKey].titulo.replace('Personalizando: ', ''),
+        ingredientes: ingredientes,
         cantidad: cantidadActual,
-        precioUnidad: precioTotal,
-        precioSubtotal: precioTotal * cantidadActual,
-        pesoUnidad: pesoTotal,
+        precioSubtotal: precio * cantidadActual,
+        pesoUnidad: peso,
         imagenSrc: iaImage.src
       };
 
       bandeja.push(itemBandeja);
-      
-      // Limpiar receta actual
-      receta.clear();
-      cantidadActual = 1;
-      cantidadDisplay.textContent = 1;
-      actualizarUI();
-      emptyState.classList.remove('hidden');
-      iaImage.classList.add('opacity-0');
 
+      // Limpiar y Volver al Catálogo
+      receta.clear();
+      volverAlCatalogo();
       actualizarBandejaUI();
     });
 
@@ -563,7 +639,7 @@
             <img src="${item.imagenSrc}" class="w-full h-full object-cover" alt="Preview">
           </div>
           <div class="flex-1">
-            <p class="font-bold text-dina-choco text-sm">${item.cantidad}x Postre Custom (${item.pesoUnidad}g/u)</p>
+            <p class="font-bold text-dina-choco text-sm">${item.cantidad}x ${item.producto} (${item.pesoUnidad}g/u)</p>
             <p class="text-stone-500 font-medium">${item.ingredientes.join(', ')}</p>
           </div>
           <div class="text-right">
@@ -577,24 +653,24 @@
       totalBandejaDisplay.textContent = '$' + totalFinal.toLocaleString('es-AR');
     }
 
-    // WhatsApp Final
+    // Pedido por WhatsApp
     btnWhatsappFinal.addEventListener('click', () => {
-      let resumenTexto = [];
-      let totalGral = 0;
+      let resumen = [];
+      let total = 0;
 
       bandeja.forEach((item, idx) => {
-        totalGral += item.precioSubtotal;
-        resumenTexto.push(`*Opción ${idx + 1}:* (${item.cantidad} unidades)%0A` +
-          `  - Ingredientes: ${item.ingredientes.join(', ')}%0A` +
+        total += item.precioSubtotal;
+        resumen.push(`*Ítem ${idx + 1}:* ${item.cantidad}x ${item.producto}%0A` +
+          `  - Opciones: ${item.ingredientes.join(', ')}%0A` +
           `  - Subtotal: $${item.precioSubtotal.toLocaleString('es-AR')}`);
       });
 
-      const textoMensaje = `¡Hola Mi Dulce Dina! 🧁 Quisiera realizar el siguiente pedido personalizado acumulado:%0A%0A` +
-        resumenTexto.join('%0A%0A') + `%0A%0A` +
-        `*TOTAL GENERAL ESTIMADO:* $${totalGral.toLocaleString('es-AR')}%0A%0A` +
-        `¿Tienen disponibilidad para coordinar la fecha de entrega?`;
+      const mensaje = `¡Hola Mi Dulce Dina! 🧁 Quisiera coordinar el siguiente pedido personalizado:%0A%0A` +
+        resumen.join('%0A%0A') + `%0A%0A` +
+        `*TOTAL GENERAL ESTIMADO:* $${total.toLocaleString('es-AR')}%0A%0A` +
+        `¿Tienen disponibilidad para coordinar la fecha?`;
 
-      window.open(`https://wa.me/?text=${textoMensaje}`, '_blank');
+      window.open(`https://wa.me/?text=${mensaje}`, '_blank');
     });
   </script>
 </body>
