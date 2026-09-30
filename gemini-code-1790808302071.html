@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pastelería Artesanal - Configurador IA Real</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @keyframes pulse-fast {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .animate-pulse-fast {
+      animation: pulse-fast 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="bg-amber-50 text-stone-800 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-amber-900 text-amber-100 py-6 shadow-md">
+    <div class="max-w-5xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold tracking-wide flex items-center gap-2">
+        <i class="fa-solid fa-cookie-bite text-amber-400"></i> Pastelería Custom IA
+      </h1>
+      <span class="text-sm bg-amber-800/80 px-3 py-1 rounded-full border border-amber-700">
+        Demo 100% Funcional con IA Real
+      </span>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+    <!-- Columna Izquierda: Panel de Control -->
+    <section class="bg-white p-6 rounded-2xl shadow-xl border border-amber-100">
+      <h2 class="text-xl font-bold text-stone-900 mb-4 pb-2 border-b border-stone-200 flex items-center justify-between">
+        <span>Diseña tu Postre</span>
+        <i class="fa-solid fa-wand-magic-sparkles text-amber-600"></i>
+      </h2>
+
+      <form id="pastry-form" class="space-y-4">
+        
+        <!-- Base / Tipo -->
+        <div>
+          <label class="block text-sm font-semibold text-stone-700 mb-1">Tipo de Postre:</label>
+          <select id="tipo" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <option value="alfajor_maicena">Alfajor de Maicena</option>
+            <option value="alfajor_chocolate">Alfajor de Chocolate</option>
+            <option value="minitorta">Mini Torta / Cupcake XL</option>
+          </select>
+        </div>
+
+        <!-- Tamaño -->
+        <div>
+          <label class="block text-sm font-semibold text-stone-700 mb-1">Tamaño:</label>
+          <select id="tamano" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <option value="chico" data-peso="70g" data-precio="800">Chico (5 cm) - ~70g</option>
+            <option value="mediano" data-peso="150g" data-precio="1500" selected>Mediano (8 cm) - ~150g</option>
+            <option value="xl" data-peso="280g" data-precio="2600">XL / Tarta (12 cm) - ~280g</option>
+          </select>
+        </div>
+
+        <!-- Cantidad / Nivel de Relleno -->
+        <div>
+          <label class="block text-sm font-semibold text-stone-700 mb-1">Nivel de Relleno (Dulce de Leche / Crema):</label>
+          <select id="relleno" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <option value="estandar" data-precio="0">Relleno Estándar</option>
+            <option value="extra" data-precio="400">Relleno Abundante / Doble capa (+ $400)</option>
+            <option value="triple" data-precio="800">Bomba Triple Relleno (+ $800)</option>
+          </select>
+        </div>
+
+        <!-- Cobertura / Color -->
+        <div>
+          <label class="block text-sm font-semibold text-stone-700 mb-1">Color / Cobertura de Masa:</label>
+          <select id="cobertura" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <option value="tradicional">Masa Tradicional Dorada / Maicena</option>
+            <option value="chocolate_negro">Baño Chocolate Negro Semiamargo (+ $350)</option>
+            <option value="chocolate_blanco">Baño Chocolate Blanco (+ $350)</option>
+            <option value="color_rosa">Glaseado Rosa Pastelería (+ $250)</option>
+          </select>
+        </div>
+
+        <!-- Toppings -->
+        <div>
+          <label class="block text-sm font-semibold text-stone-700 mb-1">Toppings / Bordes:</label>
+          <select id="topping" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <option value="coco">Coco Rallado Fino Clásico</option>
+            <option value="granas">Granas Multicolores de Fiesta</option>
+            <option value="nueces">Nueces Picadas Crunchy (+ $300)</option>
+            <option value="oreo">Pedacitos de Galletita Chocolate (+ $300)</option>
+          </select>
+        </div>
+
+        <!-- Botón de Generación -->
+        <button type="button" id="btn-generar" class="w-full mt-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-rotate text-lg"></i> Re-generar con IA en Vivo
+        </button>
+
+      </form>
+
+      <!-- Resumen de Costo -->
+      <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-200 flex justify-between items-center">
+        <div>
+          <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Peso Estimado</p>
+          <p id="peso-display" class="text-lg font-bold text-stone-800">150g</p>
+        </div>
+        <div class="text-right">
+          <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Precio Final</p>
+          <p id="precio-display" class="text-2xl font-extrabold text-amber-900">$1.500</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Columna Derecha: Vista Previa IA -->
+    <section class="bg-white p-6 rounded-2xl shadow-xl border border-amber-100 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold text-stone-900">Resultado Generado por IA</h2>
+          <span class="text-xs bg-stone-100 text-stone-600 px-2.5 py-1 rounded-md font-mono">Render Real-time</span>
+        </div>
+
+        <!-- Contenedor de la Imagen -->
+        <div class="relative w-full aspect-square bg-stone-900 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center border border-stone-200">
+          
+          <!-- Capa de Carga / Spinner -->
+          <div id="loader" class="absolute inset-0 bg-stone-900/90 z-10 flex flex-col items-center justify-center gap-3 text-white transition-opacity duration-300">
+            <i class="fa-solid fa-spinner text-4xl text-amber-500 animate-spin"></i>
+            <p class="text-sm font-medium animate-pulse-fast text-amber-200">La IA está horneando tu render...</p>
+          </div>
+
+          <!-- Imagen Real traída de la API de IA -->
+          <img id="ia-image" src="" alt="Vista previa del postre" class="w-full h-full object-cover transition-opacity duration-500 opacity-0">
+        </div>
+
+        <!-- Prompt Usado (Útil para aprender en la tecnicatura) -->
+        <div class="mt-4 p-3 bg-stone-50 rounded-lg border border-stone-200">
+          <p class="text-xs text-stone-400 font-mono mb-1">// Prompt enviado a la API de IA:</p>
+          <p id="prompt-display" class="text-xs text-stone-600 font-mono italic break-words">Cargando prompt...</p>
+        </div>
+      </div>
+
+      <!-- Pedir por WhatsApp -->
+      <button id="btn-whatsapp" class="w-full mt-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
+        <i class="fa-brands fa-whatsapp text-xl"></i> Encargar este Postre por WhatsApp
+      </button>
+
+    </section>
+
+  </main>
+
+  <!-- Script de Lógica -->
+  <script>
+    // Referencias del DOM
+    const tipoSelect = document.getElementById('tipo');
+    const tamanoSelect = document.getElementById('tamano');
+    const rellenoSelect = document.getElementById('relleno');
+    const coberturaSelect = document.getElementById('cobertura');
+    const toppingSelect = document.getElementById('topping');
+
+    const pesoDisplay = document.getElementById('peso-display');
+    const precioDisplay = document.getElementById('precio-display');
+    const promptDisplay = document.getElementById('prompt-display');
+    
+    const iaImage = document.getElementById('ia-image');
+    const loader = document.getElementById('loader');
+    const btnGenerar = document.getElementById('btn-generar');
+    const btnWhatsapp = document.getElementById('btn-whatsapp');
+
+    // Función para construir el Prompt en Inglés (La IA responde mucho mejor en inglés)
+    function construirPromptIA() {
+      let promptParts = ["Delicious high-end pastry product photography", "studio light", "4k detail"];
+
+      // Tipo y Cobertura
+      if (tipoSelect.value === 'alfajor_maicena') {
+        promptParts.push("traditional Argentine maizena alfajor, soft cornstarch cookies");
+      } else if (tipoSelect.value === 'alfajor_chocolate') {
+        promptParts.push("chocolate covered alfajor, rich cocoa sponge");
+      } else {
+        promptParts.push("gourmet artisanal mini cake cupcake");
+      }
+
+      // Relleno
+      if (rellenoSelect.value === 'extra') {
+        promptParts.push("generous thick layer of rich caramel dulce de leche filling");
+      } else if (rellenoSelect.value === 'triple') {
+        promptParts.push("huge triple layered thick caramel dulce de leche filling spilling on sides");
+      } else {
+        promptParts.push("caramel dulce de leche filling");
+      }
+
+      // Cobertura específica
+      if (coberturaSelect.value === 'chocolate_negro') {
+        promptParts.push("coated with glossy dark chocolate glaze");
+      } else if (coberturaSelect.value === 'chocolate_blanco') {
+        promptParts.push("coated with creamy white chocolate glaze");
+      } else if (coberturaSelect.value === 'color_rosa') {
+        promptParts.push("coated with cute pink pastry icing glaze");
+      }
+
+      // Topping
+      if (toppingSelect.value === 'coco') {
+        promptParts.push("edges covered with fine grated coconut flakes");
+      } else if (toppingSelect.value === 'granas') {
+        promptParts.push("decorated with colorful sprinkles");
+      } else if (toppingSelect.value === 'nueces') {
+        promptParts.push("topped with crushed walnuts");
+      } else if (toppingSelect.value === 'oreo') {
+        promptParts.push("topped with crunchy dark chocolate cookie crumbs");
+      }
+
+      return promptParts.join(", ");
+    }
+
+    // Función para actualizar Precios y Peso
+    function actualizarCalculos() {
+      const tamanoOption = tamanoSelect.options[tamanoSelect.selectedIndex];
+      const peso = tamanoOption.getAttribute('data-peso');
+      let precio = parseInt(tamanoOption.getAttribute('data-precio'));
+
+      // Sumar Relleno
+      const rellenoOption = rellenoSelect.options[rellenoSelect.selectedIndex];
+      precio += parseInt(rellenoOption.getAttribute('data-precio') || 0);
+
+      // Sumar Cobertura
+      if (coberturaSelect.value.includes('chocolate')) precio += 350;
+      if (coberturaSelect.value === 'color_rosa') precio += 250;
+
+      // Sumar Topping
+      if (toppingSelect.value === 'nueces' || toppingSelect.value === 'oreo') precio += 300;
+
+      pesoDisplay.textContent = peso;
+      precioDisplay.textContent = "$" + precio.toLocaleString('es-AR');
+
+      return precio;
+    }
+
+    // Función para llamar a la API Real de IA (Pollinations.ai - Gratuita y sin API key)
+    function generarImagenIA() {
+      // 1. Mostrar spinner y ocultar la imagen anterior
+      loader.classList.remove('opacity-0', 'pointer-events-none');
+      iaImage.classList.add('opacity-0');
+
+      // 2. Armar el prompt y semilla aleatoria para varíar cada vez
+      const prompt = construirPromptIA();
+      const seed = Math.floor(Math.random() * 1000000);
+      promptDisplay.textContent = prompt;
+
+      // 3. Crear URL directo a la API de IA
+      const urlIA = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=600&height=600&seed=${seed}&nologo=true`;
+
+      // 4. Asignar la URL a la imagen
+      iaImage.src = urlIA;
+
+      // 5. Detectar cuándo termina de cargar la imagen generada
+      iaImage.onload = () => {
+        loader.classList.add('opacity-0', 'pointer-events-none');
+        iaImage.classList.remove('opacity-0');
+      };
+
+      iaImage.onerror = () => {
+        loader.classList.add('opacity-0', 'pointer-events-none');
+        alert("Hubo un pequeño error de conexión con la IA. Intentá hacer clic en Re-generar.");
+      };
+    }
+
+    // Eventos de cambios en el formulario
+    [tipoSelect, tamanoSelect, rellenoSelect, coberturaSelect, toppingSelect].forEach(element => {
+      element.addEventListener('change', () => {
+        actualizarCalculos();
+        generarImagenIA();
+      });
+    });
+
+    btnGenerar.addEventListener('click', generarImagenIA);
+
+    // Integración con WhatsApp
+    btnWhatsapp.addEventListener('click', () => {
+      const precio = precioDisplay.textContent;
+      const peso = pesoDisplay.textContent;
+      const textoMensaje = `Hola! Quisiera encargar el siguiente postre personalizado:%0A` +
+        `- *Tipo:* ${tipoSelect.options[tipoSelect.selectedIndex].text}%0A` +
+        `- *Tamaño:* ${tamanoSelect.options[tamanoSelect.selectedIndex].text} (${peso})%0A` +
+        `- *Relleno:* ${rellenoSelect.options[rellenoSelect.selectedIndex].text}%0A` +
+        `- *Cobertura:* ${coberturaSelect.options[coberturaSelect.selectedIndex].text}%0A` +
+        `- *Topping:* ${toppingSelect.options[toppingSelect.selectedIndex].text}%0A` +
+        `- *Precio estimado:* ${precio}%0A%0A` +
+        `¿Tienen disponibilidad para esta semana?`;
+
+      // Abrir WhatsApp Web / App
+      window.open(`https://wa.me/?text=${textoMensaje}`, '_blank');
+    });
+
+    // Carga Inicial
+    actualizarCalculos();
+    generarImagenIA();
+  </script>
+</body>
+</html>
