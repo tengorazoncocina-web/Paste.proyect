@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mi Dulce Dina - Creador Mágico de Postres con IA</title>
+  <title>Mi Dulce Dina - Creador Mágico de Postres</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,38 +74,72 @@
         </div>
         <div>
           <h1 class="text-3xl font-bold tracking-wide font-title text-white">Mi Dulce Dina</h1>
-          <p class="text-xs text-dina-pinkLight tracking-wider uppercase font-semibold">Armá tu postre arrastrando ingredientes</p>
+          <p class="text-xs text-dina-pinkLight tracking-wider uppercase font-semibold">Armá tu postre y sumalo a tu bandeja</p>
         </div>
       </div>
-      <a href="https://www.instagram.com/midulcedina/" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2 rounded-full border border-white/40 transition flex items-center gap-2">
-        <i class="fa-brands fa-instagram text-sm"></i> @midulcedina
-      </a>
+      
+      <div class="flex items-center gap-2">
+        <!-- Botón Desplegable Lista de Precios -->
+        <button id="btn-toggle-precios" class="text-xs bg-dina-gold hover:bg-amber-400 text-dina-choco font-bold px-4 py-2 rounded-full border border-amber-300 transition flex items-center gap-2 shadow">
+          <i class="fa-solid fa-list-check"></i> Ver Lista de Precios
+        </button>
+
+        <a href="https://www.instagram.com/midulcedina/" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2 rounded-full border border-white/40 transition flex items-center gap-2">
+          <i class="fa-brands fa-instagram text-sm"></i> @midulcedina
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+  <!-- Panel Desplegable de Lista de Precios -->
+  <div id="panel-precios" class="max-w-5xl mx-auto px-4 mt-4 hidden">
+    <div class="bg-white p-5 rounded-2xl shadow-lg border-2 border-dina-pinkSoft grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+      <div>
+        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Bases</h4>
+        <p>🌾 Tapitas Maizena: <strong>$800</strong></p>
+        <p>🍫 Masa Chocolate: <strong>$1.000</strong></p>
+      </div>
+      <div>
+        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Rellenos</h4>
+        <p>🍯 Dulce de Leche: <strong>$500</strong></p>
+        <p>💥 Extra DDL Triple: <strong>$800</strong></p>
+      </div>
+      <div>
+        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Coberturas</h4>
+        <p>🖤 Chocolate Negro: <strong>$400</strong></p>
+        <p>💖 Glaseado Rosa: <strong>$350</strong></p>
+      </div>
+      <div>
+        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Toppings</h4>
+        <p>🥥 Coco Rallado: <strong>$200</strong></p>
+        <p>🌰 Nueces Crunchy: <strong>$350</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-2 gap-8">
     
     <!-- Panel de Ingredientes (Izquierda) -->
     <section class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft flex flex-col justify-between">
       <div>
-        <h2 class="text-2xl font-bold text-dina-choco mb-2 font-title flex items-center gap-2">
+        <h2 class="text-2xl font-bold text-dina-choco mb-1 font-title flex items-center gap-2">
           <span>Ingredientes Disponibles</span>
           <i class="fa-solid fa-hand-pointer text-dina-rose text-lg"></i>
         </h2>
-        <p class="text-xs text-stone-500 mb-6">Arrastrá las opciones hacia la derecha o hacé clic en el botón <strong>+</strong> para agregarlas a tu receta.</p>
+        <p class="text-xs text-stone-500 mb-5">Arrastrá o hacé clic en el botón <strong>+</strong> para elegir ingredientes.</p>
 
         <!-- Grupos de ingredientes -->
-        <div class="space-y-5">
+        <div class="space-y-4">
           
           <!-- Masa / Base -->
           <div>
-            <h3 class="text-sm font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">1. Masa / Base</h3>
+            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">1. Masa / Base</h3>
             <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="base" data-id="maizena" data-name="Tapitas de Maizena" data-price="800" data-weight="70g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="base" data-id="maizena" data-name="Tapitas de Maizena" data-price="800" data-weight="70g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>🌾 Tapitas Maizena</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
-              <div draggable="true" data-type="base" data-id="chocomasa" data-name="Masa de Chocolate" data-price="1000" data-weight="80g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="base" data-id="chocomasa" data-name="Masa de Chocolate" data-price="1000" data-weight="80g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>🍫 Masa Chocolate</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
@@ -114,13 +148,13 @@
 
           <!-- Relleno -->
           <div>
-            <h3 class="text-sm font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">2. Relleno Principal</h3>
+            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">2. Relleno Principal</h3>
             <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="relleno" data-id="ddl_clasico" data-name="Dulce de Leche Clásico" data-price="500" data-weight="50g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="relleno" data-id="ddl_clasico" data-name="Dulce de Leche Clásico" data-price="500" data-weight="50g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>🍯 Dulce de Leche</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
-              <div draggable="true" data-type="relleno" data-id="ddl_extra" data-name="Bomba Extra DDL" data-price="800" data-weight="90g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="relleno" data-id="ddl_extra" data-name="Bomba Extra DDL" data-price="800" data-weight="90g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>💥 Extra DDL Triple</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
@@ -129,13 +163,13 @@
 
           <!-- Cobertura -->
           <div>
-            <h3 class="text-sm font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">3. Cobertura / Baño</h3>
+            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">3. Cobertura / Baño</h3>
             <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="cobertura" data-id="choco_negro" data-name="Baño Chocolate Negro" data-price="400" data-weight="20g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="cobertura" data-id="choco_negro" data-name="Baño Chocolate Negro" data-price="400" data-weight="20g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>🖤 Chocolate Negro</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
-              <div draggable="true" data-type="cobertura" data-id="glaseado_rosa" data-name="Glaseado Rosa Dina" data-price="350" data-weight="15g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="cobertura" data-id="glaseado_rosa" data-name="Glaseado Rosa Dina" data-price="350" data-weight="15g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>💖 Glaseado Rosa</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
@@ -144,13 +178,13 @@
 
           <!-- Toppings -->
           <div>
-            <h3 class="text-sm font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">4. Bordes / Toppings</h3>
+            <h3 class="text-xs font-bold text-dina-choco/80 uppercase tracking-wider mb-2 border-b border-dina-pinkSoft pb-1">4. Bordes / Toppings</h3>
             <div class="grid grid-cols-2 gap-2">
-              <div draggable="true" data-type="topping" data-id="coco" data-name="Coco Rallado Fino" data-price="200" data-weight="10g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="topping" data-id="coco" data-name="Coco Rallado Fino" data-price="200" data-weight="10g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>🥥 Coco Rallado</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
-              <div draggable="true" data-type="topping" data-id="nueces" data-name="Nueces Picadas" data-price="350" data-weight="15g" class="draggable-item p-3 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
+              <div draggable="true" data-type="topping" data-id="nueces" data-name="Nueces Picadas" data-price="350" data-weight="15g" class="draggable-item p-2.5 bg-dina-cream rounded-xl border-2 border-dina-pinkSoft hover:border-dina-rose flex justify-between items-center text-xs font-bold shadow-sm">
                 <span>🌰 Nueces Crunchy</span>
                 <i class="fa-solid fa-plus text-dina-rose"></i>
               </div>
@@ -160,111 +194,157 @@
         </div>
       </div>
 
-      <!-- Resumen en vivo -->
-      <div class="mt-6 p-4 bg-dina-pinkSoft/60 rounded-2xl border border-dina-pinkSoft flex justify-between items-center">
+      <!-- Resumen Unidad Actual -->
+      <div class="mt-5 p-4 bg-dina-pinkSoft/60 rounded-2xl border border-dina-pinkSoft flex justify-between items-center">
         <div>
-          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Peso Total</p>
-          <p id="peso-display" class="text-xl font-title font-bold text-dina-choco">0g</p>
+          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Peso x Unidad</p>
+          <p id="peso-display" class="text-lg font-title font-bold text-dina-choco">0g</p>
         </div>
         <div class="text-right">
-          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Precio Estimado</p>
-          <p id="precio-display" class="text-3xl font-title font-extrabold text-dina-rose">$0</p>
+          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Precio x Unidad</p>
+          <p id="precio-display" class="text-2xl font-title font-extrabold text-dina-rose">$0</p>
         </div>
       </div>
 
     </section>
 
-    <!-- Zona de Horneado IA / Dropzone (Derecha) -->
+    <!-- Zona de Horneado IA / Diseñador (Derecha) -->
     <section class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft flex flex-col justify-between">
       <div>
         <div class="flex justify-between items-center mb-3">
-          <h2 class="text-2xl font-bold text-dina-choco font-title">Tu Receta Interactiva</h2>
+          <h2 class="text-2xl font-bold text-dina-choco font-title">Diseñá tu Receta</h2>
           <span class="text-xs bg-dina-pinkSoft text-dina-choco font-bold px-3 py-1 rounded-full">Zona de Horneado</span>
         </div>
 
         <!-- Dropzone de Ingredientes Selección -->
-        <div id="dropzone" class="w-full min-h-[100px] bg-dina-cream rounded-2xl border-2 border-dashed border-dina-rose/50 p-3 mb-4 transition-all duration-200 flex flex-wrap gap-2 items-center justify-start">
-          <p id="dropzone-placeholder" class="text-xs text-dina-choco/50 text-center w-full py-4 font-medium pointer-events-none">
-            <i class="fa-solid fa-cloud-arrow-down text-lg block mb-1 text-dina-rose"></i>
-            Arrastrá o tocá los ingredientes para ir sumándolos a la receta...
+        <div id="dropzone" class="w-full min-h-[90px] bg-dina-cream rounded-2xl border-2 border-dashed border-dina-rose/50 p-2.5 mb-3 transition-all duration-200 flex flex-wrap gap-1.5 items-center justify-start">
+          <p id="dropzone-placeholder" class="text-xs text-dina-choco/50 text-center w-full py-3 font-medium pointer-events-none">
+            <i class="fa-solid fa-cloud-arrow-down text-base block mb-1 text-dina-rose"></i>
+            Arrastrá o elegí los ingredientes para armar la receta...
           </p>
         </div>
 
         <!-- Visor Fotográfico con IA -->
         <div class="relative w-full aspect-square bg-dina-chocoDark rounded-2xl overflow-hidden shadow-inner border-4 border-dina-pinkSoft flex items-center justify-center">
           
-          <!-- Loader Carga -->
           <div id="loader" class="absolute inset-0 bg-dina-chocoDark/90 z-10 flex flex-col items-center justify-center gap-3 text-white transition-opacity duration-300 opacity-0 pointer-events-none">
             <i class="fa-solid fa-cookie text-5xl text-dina-rose animate-spin-slow"></i>
             <p class="text-sm font-title font-bold animate-pulse text-dina-pinkSoft">Horneando tu diseño con IA...</p>
           </div>
 
-          <!-- Estado Inicial sin ingredientes -->
           <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-dina-pinkSoft/60 p-6 text-center">
             <i class="fa-solid fa-wand-magic-sparkles text-4xl mb-2 text-dina-rose/50"></i>
-            <p class="text-sm font-title">Agregá al menos un ingrediente para generar la foto de tu postre</p>
+            <p class="text-sm font-title">Agregá al menos un ingrediente para ver el postre en la foto</p>
           </div>
 
-          <!-- Error silencioso con botón reintentar -->
           <div id="error-state" class="absolute inset-0 bg-dina-chocoDark z-20 hidden flex-col items-center justify-center text-white p-6 text-center gap-3">
             <i class="fa-solid fa-triangle-exclamation text-3xl text-dina-gold"></i>
-            <p class="text-xs text-dina-pinkSoft">Hubo un pequeño parpadeo en el horno de la IA.</p>
+            <p class="text-xs text-dina-pinkSoft">Un pequeño parpadeo en el servidor de IA.</p>
             <button id="btn-reintentar" class="text-xs bg-dina-rose hover:bg-pink-500 text-white font-bold px-4 py-2 rounded-xl transition">
               Reintentar Render
             </button>
           </div>
 
-          <!-- Imagen Real Generada -->
           <img id="ia-image" src="" alt="Postre personalizado" class="w-full h-full object-cover transition-opacity duration-500 opacity-0">
         </div>
 
-        <!-- Botón Volver a Hornear -->
-        <button id="btn-generar" disabled class="w-full mt-4 bg-dina-rose hover:bg-pink-500 disabled:opacity-40 text-white font-title text-base font-bold py-3 px-4 rounded-2xl shadow transition duration-200 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-rotate"></i> Regenerar otra foto de la combinación
-        </button>
+        <!-- Controles de Cantidad y Agregar a Bandeja -->
+        <div class="mt-4 p-3 bg-dina-pinkSoft/40 rounded-2xl border border-dina-pinkSoft flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-dina-choco">Cantidad:</span>
+            <div class="flex items-center bg-white border border-dina-pinkSoft rounded-xl overflow-hidden">
+              <button id="btn-menos" class="px-3 py-1 font-bold text-dina-rose hover:bg-dina-pinkSoft">-</button>
+              <span id="cantidad-display" class="px-3 py-1 font-bold text-sm text-dina-choco">1</span>
+              <button id="btn-mas" class="px-3 py-1 font-bold text-dina-rose hover:bg-dina-pinkSoft">+</button>
+            </div>
+          </div>
+
+          <button id="btn-agregar-bandeja" disabled class="flex-1 bg-dina-rose hover:bg-pink-500 disabled:opacity-40 text-white font-title text-sm font-bold py-2.5 px-3 rounded-xl shadow transition flex items-center justify-center gap-2">
+            <i class="fa-solid fa-cart-plus"></i> Agregar a la Bandeja
+          </button>
+        </div>
       </div>
-
-      <!-- Pedido por WhatsApp -->
-      <button id="btn-whatsapp" disabled class="w-full mt-6 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 text-white font-title text-lg font-bold py-4 px-4 rounded-2xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
-        <i class="fa-brands fa-whatsapp text-2xl"></i> Pedir a Mi Dulce Dina por WhatsApp
-      </button>
-
     </section>
 
   </main>
 
-  <!-- Lógica en JS -->
+  <!-- Sección de Bandeja de Pedidos (Carrito Acumulativo) -->
+  <section class="max-w-5xl mx-auto px-4 mt-2">
+    <div class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft">
+      <div class="flex justify-between items-center mb-4 pb-2 border-b-2 border-dina-pinkSoft">
+        <h3 class="text-2xl font-title font-bold text-dina-choco flex items-center gap-2">
+          <i class="fa-solid fa-basket-shopping text-dina-rose"></i> Tu Bandeja de Pedidos
+        </h3>
+        <span id="total-bandeja" class="text-2xl font-title font-extrabold text-dina-rose">$0</span>
+      </div>
+
+      <!-- Contenedor Lista de Pedidos -->
+      <div id="bandeja-lista" class="space-y-3 min-h-[60px] flex flex-col justify-center">
+        <p id="bandeja-vacia" class="text-xs text-dina-choco/50 text-center py-4 font-medium">
+          Aún no agregaste postres a la bandeja. Armá una receta arriba y presioná <strong>"Agregar a la Bandeja"</strong>.
+        </p>
+      </div>
+
+      <!-- Botón WhatsApp Final -->
+      <button id="btn-whatsapp-final" disabled class="w-full mt-6 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-40 text-white font-title text-lg font-bold py-4 px-4 rounded-2xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
+        <i class="fa-brands fa-whatsapp text-2xl"></i> Enviar Pedido Completo por WhatsApp
+      </button>
+    </div>
+  </section>
+
+  <!-- Lógica en JavaScript -->
   <script>
-    // Estado de la app
+    // Estado de la Receta Actual
     const receta = new Map();
+    let cantidadActual = 1;
+
+    // Estado de la Bandeja Global (Carrito)
+    const bandeja = [];
 
     // Elementos DOM
     const dropzone = document.getElementById('dropzone');
     const placeholder = document.getElementById('dropzone-placeholder');
     const pesoDisplay = document.getElementById('peso-display');
     const precioDisplay = document.getElementById('precio-display');
+    const cantidadDisplay = document.getElementById('cantidad-display');
     
     const iaImage = document.getElementById('ia-image');
     const loader = document.getElementById('loader');
     const emptyState = document.getElementById('empty-state');
     const errorState = document.getElementById('error-state');
-    const btnGenerar = document.getElementById('btn-generar');
-    const btnWhatsapp = document.getElementById('btn-whatsapp');
+    
+    const btnMenos = document.getElementById('btn-menos');
+    const btnMas = document.getElementById('btn-mas');
+    const btnAgregarBandeja = document.getElementById('btn-agregar-bandeja');
     const btnReintentar = document.getElementById('btn-reintentar');
+    
+    const bandejaLista = document.getElementById('bandeja-lista');
+    const bandejaVacia = document.getElementById('bandeja-vacia');
+    const totalBandejaDisplay = document.getElementById('total-bandeja');
+    const btnWhatsappFinal = document.getElementById('btn-whatsapp-final');
 
-    // Mapeo detallado de prompts profesionales para la IA
-    const promptsDetallados = {
-      'maizena': 'two delicate pale yellow Argentine cornstarch cookies sandwiched together',
-      'chocomasa': 'two thick artisanal dark chocolate cocoa cookies',
-      'ddl_clasico': 'generous thick caramel dulce de leche filling layer in middle',
-      'ddl_extra': 'huge extra thick double layered caramel dulce de leche filling overflowing on sides',
-      'choco_negro': 'dipped in smooth glossy dark chocolate glaze coating',
-      'glaseado_rosa': 'decorated with cute pastel pink sugar icing glaze dripping on top',
-      'coco': 'outer rim completely coated in fine white shredded coconut flakes',
-      'nueces': 'topped with crunchy crushed walnut pieces'
-    };
+    const btnTogglePrecios = document.getElementById('btn-toggle-precios');
+    const panelPrecios = document.getElementById('panel-precios');
 
-    // Configurar Arrastre (Drag & Drop)
+    // Toggle Lista Precios
+    btnTogglePrecios.addEventListener('click', () => {
+      panelPrecios.classList.toggle('hidden');
+    });
+
+    // Control de Cantidades
+    btnMenos.addEventListener('click', () => {
+      if (cantidadActual > 1) {
+        cantidadActual--;
+        cantidadDisplay.textContent = cantidadActual;
+      }
+    });
+
+    btnMas.addEventListener('click', () => {
+      cantidadActual++;
+      cantidadDisplay.textContent = cantidadActual;
+    });
+
+    // Drag & Drop
     document.querySelectorAll('.draggable-item').forEach(item => {
       item.addEventListener('dragstart', (e) => {
         const itemData = {
@@ -276,7 +356,6 @@
         e.dataTransfer.setData('text/plain', JSON.stringify(itemData));
       });
 
-      // Permite agregar al hacer clic
       item.addEventListener('click', () => {
         const itemData = {
           id: item.dataset.id,
@@ -325,34 +404,36 @@
       }
     }
 
-    function actualizarUI() {
-      // 1. Renderizar chips de la receta
-      if (receta.size > 0) {
-        placeholder.classList.add('hidden');
-        emptyState.classList.add('hidden');
-        btnGenerar.disabled = false;
-        btnWhatsapp.disabled = false;
-      } else {
-        placeholder.classList.remove('hidden');
-        btnGenerar.disabled = true;
-        btnWhatsapp.disabled = true;
-      }
-
-      // Eliminar chips viejos
-      document.querySelectorAll('.chip-item').forEach(el => el.remove());
-
+    function calcularPreciosUnidad() {
       let pesoTotal = 0;
       let precioTotal = 0;
-
       receta.forEach((ing) => {
         pesoTotal += ing.weight;
         precioTotal += ing.price;
+      });
+      return { pesoTotal, precioTotal };
+    }
 
+    function actualizarUI() {
+      if (receta.size > 0) {
+        placeholder.classList.add('hidden');
+        emptyState.classList.add('hidden');
+        btnAgregarBandeja.disabled = false;
+      } else {
+        placeholder.classList.remove('hidden');
+        btnAgregarBandeja.disabled = true;
+      }
+
+      document.querySelectorAll('.chip-item').forEach(el => el.remove());
+
+      const { pesoTotal, precioTotal } = calcularPreciosUnidad();
+
+      receta.forEach((ing) => {
         const chip = document.createElement('div');
-        chip.className = 'chip-item bg-dina-pinkSoft border border-dina-rose text-dina-choco font-bold text-xs px-3 py-1.5 rounded-full flex items-center gap-2 shadow-sm animate-fadeIn';
+        chip.className = 'chip-item bg-dina-pinkSoft border border-dina-rose text-dina-choco font-bold text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm';
         chip.innerHTML = `
           <span>${ing.name}</span>
-          <button type="button" onclick="removerIngrediente('${ing.id}')" class="text-dina-rose hover:text-red-500 font-extrabold ml-1">
+          <button type="button" onclick="removerIngrediente('${ing.id}')" class="text-dina-rose hover:text-red-500 font-extrabold ml-0.5">
             <i class="fa-solid fa-xmark"></i>
           </button>
         `;
@@ -363,16 +444,35 @@
       precioDisplay.textContent = '$' + precioTotal.toLocaleString('es-AR');
     }
 
+    // Motor de Prompt Estricto
     function construirPromptGourmet() {
-      let partes = ["Macro professional studio food photography of a single artisanal Argentine alfajor dessert", "soft pastel background", "bright studio lighting", "crisp focus 4k detail"];
+      const tieneChocoNegro = receta.has('choco_negro');
+      const tieneGlaseado = receta.has('glaseado_rosa');
+      const tieneChocoMasa = receta.has('chocomasa');
+      const tieneCoco = receta.has('coco');
+      const tieneNueces = receta.has('nueces');
 
-      receta.forEach((ing, id) => {
-        if (promptsDetallados[id]) {
-          partes.push(promptsDetallados[id]);
-        }
-      });
+      let promptBase = "";
 
-      return partes.join(", ");
+      if (tieneChocoNegro) {
+        promptBase = "Macro close-up photography of a gourmet chocolate covered alfajor cookie on a plate. Dark chocolate dipped round sandwich cookie, thick dulce de leche caramel filling visible on side layer";
+      } else if (tieneGlaseado) {
+        promptBase = "Macro photography of an artisanal round sandwich cookie covered in smooth pastel pink icing glaze";
+      } else if (tieneChocoMasa) {
+        promptBase = "Macro photography of a double dark cocoa chocolate sandwich cookie filled with rich brown dulce de leche caramel";
+      } else {
+        promptBase = "Macro studio food photography of an authentic Argentine alfajor de maizena. Two round pale yellow cornstarch cookies sandwiched with a generous thick layer of caramel dulce de leche filling in the middle";
+      }
+
+      if (tieneCoco && !tieneChocoNegro) {
+        promptBase += ", edges completely rolled in fine white shredded coconut flakes";
+      }
+      if (tieneNueces) {
+        promptBase += ", sprinkled with crushed walnut pieces on top";
+      }
+
+      promptBase += ". High resolution, professional bakery catalog photo, sharp focus, studio presentation, no gelatin, no pudding.";
+      return promptBase;
     }
 
     function generarFotoIA() {
@@ -400,19 +500,99 @@
       };
     }
 
-    btnGenerar.addEventListener('click', generarFotoIA);
     btnReintentar.addEventListener('click', generarFotoIA);
 
-    // Integración WhatsApp
-    btnWhatsapp.addEventListener('click', () => {
-      let listaTexto = [];
-      receta.forEach((ing) => listaTexto.push(`- ${ing.name}`));
+    // Agregar Pedido a la Bandeja
+    btnAgregarBandeja.addEventListener('click', () => {
+      if (receta.size === 0) return;
 
-      const textoMensaje = `¡Hola Mi Dulce Dina! 🧁 Quisiera pedir este postre personalizado creado en la web:%0A%0A` +
-        `*Ingredientes elegidos:*%0A${listaTexto.join('%0A')}%0A%0A` +
-        `- *Peso total:* ${pesoDisplay.textContent}%0A` +
-        `- *Precio estimado:* ${precioDisplay.textContent}%0A%0A` +
-        `¿Tienen disponibilidad para esta fecha?`;
+      const { pesoTotal, precioTotal } = calcularPreciosUnidad();
+      const ingredientesNombres = [];
+      receta.forEach(ing => ingredientesNombres.push(ing.name));
+
+      const itemBandeja = {
+        id: Date.now(),
+        ingredientes: ingredientesNombres,
+        cantidad: cantidadActual,
+        precioUnidad: precioTotal,
+        precioSubtotal: precioTotal * cantidadActual,
+        pesoUnidad: pesoTotal,
+        imagenSrc: iaImage.src
+      };
+
+      bandeja.push(itemBandeja);
+      
+      // Limpiar receta actual
+      receta.clear();
+      cantidadActual = 1;
+      cantidadDisplay.textContent = 1;
+      actualizarUI();
+      emptyState.classList.remove('hidden');
+      iaImage.classList.add('opacity-0');
+
+      actualizarBandejaUI();
+    });
+
+    function removerDeBandeja(index) {
+      bandeja.splice(index, 1);
+      actualizarBandejaUI();
+    }
+
+    function actualizarBandejaUI() {
+      document.querySelectorAll('.item-bandeja-row').forEach(el => el.remove());
+
+      if (bandeja.length === 0) {
+        bandejaVacia.classList.remove('hidden');
+        btnWhatsappFinal.disabled = true;
+        totalBandejaDisplay.textContent = '$0';
+        return;
+      }
+
+      bandejaVacia.classList.add('hidden');
+      btnWhatsappFinal.disabled = false;
+
+      let totalFinal = 0;
+
+      bandeja.forEach((item, idx) => {
+        totalFinal += item.precioSubtotal;
+
+        const row = document.createElement('div');
+        row.className = 'item-bandeja-row p-3 bg-dina-pinkSoft/40 rounded-2xl border border-dina-pinkSoft flex items-center justify-between gap-3 text-xs';
+        row.innerHTML = `
+          <div class="w-12 h-12 rounded-xl bg-dina-chocoDark overflow-hidden flex-shrink-0 border border-dina-pinkSoft">
+            <img src="${item.imagenSrc}" class="w-full h-full object-cover" alt="Preview">
+          </div>
+          <div class="flex-1">
+            <p class="font-bold text-dina-choco text-sm">${item.cantidad}x Postre Custom (${item.pesoUnidad}g/u)</p>
+            <p class="text-stone-500 font-medium">${item.ingredientes.join(', ')}</p>
+          </div>
+          <div class="text-right">
+            <p class="font-title font-extrabold text-dina-rose text-base">$${item.precioSubtotal.toLocaleString('es-AR')}</p>
+            <button onclick="removerDeBandeja(${idx})" class="text-xs text-red-400 hover:text-red-600 font-bold">Eliminar</button>
+          </div>
+        `;
+        bandejaLista.appendChild(row);
+      });
+
+      totalBandejaDisplay.textContent = '$' + totalFinal.toLocaleString('es-AR');
+    }
+
+    // WhatsApp Final
+    btnWhatsappFinal.addEventListener('click', () => {
+      let resumenTexto = [];
+      let totalGral = 0;
+
+      bandeja.forEach((item, idx) => {
+        totalGral += item.precioSubtotal;
+        resumenTexto.push(`*Opción ${idx + 1}:* (${item.cantidad} unidades)%0A` +
+          `  - Ingredientes: ${item.ingredientes.join(', ')}%0A` +
+          `  - Subtotal: $${item.precioSubtotal.toLocaleString('es-AR')}`);
+      });
+
+      const textoMensaje = `¡Hola Mi Dulce Dina! 🧁 Quisiera realizar el siguiente pedido personalizado acumulado:%0A%0A` +
+        resumenTexto.join('%0A%0A') + `%0A%0A` +
+        `*TOTAL GENERAL ESTIMADO:* $${totalGral.toLocaleString('es-AR')}%0A%0A` +
+        `¿Tienen disponibilidad para coordinar la fecha de entrega?`;
 
       window.open(`https://wa.me/?text=${textoMensaje}`, '_blank');
     });
