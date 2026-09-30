@@ -3,10 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pastelería Artesanal - Configurador IA Real</title>
+  <title>Mi Dulce Dina - Pastelería Personalizada con IA</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dina: {
+              rose: '#f4a2b8',
+              pinkSoft: '#fce7f0',
+              pinkLight: '#fff0f5',
+              choco: '#5c3d2e',
+              chocoDark: '#3d261c',
+              cream: '#fffbf5',
+              gold: '#f3c669'
+            }
+          },
+          fontFamily: {
+            title: ['Fredoka', 'sans-serif'],
+            body: ['Quicksand', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+    }
+    h1, h2, h3, .font-title {
+      font-family: 'Fredoka', sans-serif;
+    }
     @keyframes pulse-fast {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
@@ -16,145 +50,150 @@
     }
   </style>
 </head>
-<body class="bg-amber-50 text-stone-800 min-h-screen">
+<body class="bg-dina-pinkLight text-dina-choco min-h-screen">
 
-  <!-- Header -->
-  <header class="bg-amber-900 text-amber-100 py-6 shadow-md">
-    <div class="max-w-5xl mx-auto px-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold tracking-wide flex items-center gap-2">
-        <i class="fa-solid fa-cookie-bite text-amber-400"></i> Pastelería Custom IA
-      </h1>
-      <span class="text-sm bg-amber-800/80 px-3 py-1 rounded-full border border-amber-700">
-        Demo 100% Funcional con IA Real
-      </span>
+  <!-- Header Estilo Mi Dulce Dina -->
+  <header class="bg-dina-rose text-white py-6 shadow-md border-b-4 border-dina-gold">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-white text-dina-rose rounded-full flex items-center justify-center text-2xl shadow-inner font-title font-bold">
+          <i class="fa-solid fa-cake-candles"></i>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold tracking-wide font-title text-white">Mi Dulce Dina</h1>
+          <p class="text-xs text-dina-pinkLight tracking-wider uppercase font-semibold">Pastelería Artesanal Custom</p>
+        </div>
+      </div>
+      <a href="https://www.instagram.com/midulcedina/" target="_blank" class="text-xs bg-white/20 hover:bg-white/30 text-white font-bold px-4 py-2 rounded-full border border-white/40 transition flex items-center gap-2">
+        <i class="fa-brands fa-instagram text-sm"></i> @midulcedina
+      </a>
     </div>
   </header>
 
   <!-- Contenido Principal -->
   <main class="max-w-5xl mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-2 gap-8">
     
-    <!-- Columna Izquierda: Panel de Control -->
-    <section class="bg-white p-6 rounded-2xl shadow-xl border border-amber-100">
-      <h2 class="text-xl font-bold text-stone-900 mb-4 pb-2 border-b border-stone-200 flex items-center justify-between">
-        <span>Diseña tu Postre</span>
-        <i class="fa-solid fa-wand-magic-sparkles text-amber-600"></i>
+    <!-- Panel de Control (Izquierda) -->
+    <section class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft">
+      <h2 class="text-2xl font-bold text-dina-choco mb-4 pb-3 border-b-2 border-dina-pinkSoft flex items-center justify-between font-title">
+        <span>Diseñá tu pedido</span>
+        <i class="fa-solid fa-wand-magic-sparkles text-dina-rose"></i>
       </h2>
 
       <form id="pastry-form" class="space-y-4">
         
-        <!-- Base / Tipo -->
+        <!-- Tipo de Postre -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-1">Tipo de Postre:</label>
-          <select id="tipo" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
-            <option value="alfajor_maicena">Alfajor de Maicena</option>
-            <option value="alfajor_chocolate">Alfajor de Chocolate</option>
+          <label class="block text-sm font-bold text-dina-choco mb-1">Tipo de Postre:</label>
+          <select id="tipo" class="w-full bg-dina-cream border-2 border-dina-pinkSoft rounded-xl p-3 text-dina-choco font-semibold focus:ring-2 focus:ring-dina-rose focus:outline-none">
+            <option value="alfajor_maicena">Alfajor de Maicena Tradicional</option>
+            <option value="alfajor_chocolate">Alfajor Bañado en Chocolate</option>
             <option value="minitorta">Mini Torta / Cupcake XL</option>
           </select>
         </div>
 
         <!-- Tamaño -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-1">Tamaño:</label>
-          <select id="tamano" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <label class="block text-sm font-bold text-dina-choco mb-1">Tamaño:</label>
+          <select id="tamano" class="w-full bg-dina-cream border-2 border-dina-pinkSoft rounded-xl p-3 text-dina-choco font-semibold focus:ring-2 focus:ring-dina-rose focus:outline-none">
             <option value="chico" data-peso="70g" data-precio="800">Chico (5 cm) - ~70g</option>
             <option value="mediano" data-peso="150g" data-precio="1500" selected>Mediano (8 cm) - ~150g</option>
             <option value="xl" data-peso="280g" data-precio="2600">XL / Tarta (12 cm) - ~280g</option>
           </select>
         </div>
 
-        <!-- Cantidad / Nivel de Relleno -->
+        <!-- Nivel de Relleno -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-1">Nivel de Relleno (Dulce de Leche / Crema):</label>
-          <select id="relleno" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
-            <option value="estandar" data-precio="0">Relleno Estándar</option>
-            <option value="extra" data-precio="400">Relleno Abundante / Doble capa (+ $400)</option>
-            <option value="triple" data-precio="800">Bomba Triple Relleno (+ $800)</option>
+          <label class="block text-sm font-bold text-dina-choco mb-1">Relleno (Dulce de Leche / Crema):</label>
+          <select id="relleno" class="w-full bg-dina-cream border-2 border-dina-pinkSoft rounded-xl p-3 text-dina-choco font-semibold focus:ring-2 focus:ring-dina-rose focus:outline-none">
+            <option value="estandar" data-precio="0">Relleno Clásico</option>
+            <option value="extra" data-precio="400">Extra Dulce de Leche (+ $400)</option>
+            <option value="triple" data-precio="800">Bomba Triple Capa (+ $800)</option>
           </select>
         </div>
 
         <!-- Cobertura / Color -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-1">Color / Cobertura de Masa:</label>
-          <select id="cobertura" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <label class="block text-sm font-bold text-dina-choco mb-1">Cobertura / Glaseado:</label>
+          <select id="cobertura" class="w-full bg-dina-cream border-2 border-dina-pinkSoft rounded-xl p-3 text-dina-choco font-semibold focus:ring-2 focus:ring-dina-rose focus:outline-none">
             <option value="tradicional">Masa Tradicional Dorada / Maicena</option>
-            <option value="chocolate_negro">Baño Chocolate Negro Semiamargo (+ $350)</option>
+            <option value="chocolate_negro">Baño Chocolate Negro (+ $350)</option>
             <option value="chocolate_blanco">Baño Chocolate Blanco (+ $350)</option>
-            <option value="color_rosa">Glaseado Rosa Pastelería (+ $250)</option>
+            <option value="color_rosa">Glaseado Rosa Mi Dulce Dina (+ $250)</option>
           </select>
         </div>
 
         <!-- Toppings -->
         <div>
-          <label class="block text-sm font-semibold text-stone-700 mb-1">Toppings / Bordes:</label>
-          <select id="topping" class="w-full bg-stone-50 border border-stone-300 rounded-lg p-2.5 text-stone-800 focus:ring-2 focus:ring-amber-500 focus:outline-none">
-            <option value="coco">Coco Rallado Fino Clásico</option>
+          <label class="block text-sm font-bold text-dina-choco mb-1">Toppings / Bordes:</label>
+          <select id="topping" class="w-full bg-dina-cream border-2 border-dina-pinkSoft rounded-xl p-3 text-dina-choco font-semibold focus:ring-2 focus:ring-dina-rose focus:outline-none">
+            <option value="coco">Coco Rallado Fino</option>
             <option value="granas">Granas Multicolores de Fiesta</option>
-            <option value="nueces">Nueces Picadas Crunchy (+ $300)</option>
+            <option value="nueces">Nueces Picadas Crunch (+ $300)</option>
             <option value="oreo">Pedacitos de Galletita Chocolate (+ $300)</option>
           </select>
         </div>
 
-        <!-- Botón de Generación -->
-        <button type="button" id="btn-generar" class="w-full mt-2 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-rotate text-lg"></i> Re-generar con IA en Vivo
+        <!-- Botón de Generar -->
+        <button type="button" id="btn-generar" class="w-full mt-2 bg-dina-rose hover:bg-pink-500 text-white font-title text-lg font-bold py-3.5 px-4 rounded-2xl shadow-lg hover:shadow-xl transition duration-200 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-rotate"></i> Re-generar vista previa con IA
         </button>
 
       </form>
 
       <!-- Resumen de Costo -->
-      <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-200 flex justify-between items-center">
+      <div class="mt-6 p-4 bg-dina-pinkSoft/60 rounded-2xl border border-dina-pinkSoft flex justify-between items-center">
         <div>
-          <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Peso Estimado</p>
-          <p id="peso-display" class="text-lg font-bold text-stone-800">150g</p>
+          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Peso Estimado</p>
+          <p id="peso-display" class="text-xl font-title font-bold text-dina-choco">150g</p>
         </div>
         <div class="text-right">
-          <p class="text-xs text-stone-500 font-semibold uppercase tracking-wider">Precio Final</p>
-          <p id="precio-display" class="text-2xl font-extrabold text-amber-900">$1.500</p>
+          <p class="text-xs text-dina-choco/70 font-bold uppercase tracking-wider">Precio Final Estimado</p>
+          <p id="precio-display" class="text-3xl font-title font-extrabold text-dina-rose">$1.500</p>
         </div>
       </div>
 
     </section>
 
-    <!-- Columna Derecha: Vista Previa IA -->
-    <section class="bg-white p-6 rounded-2xl shadow-xl border border-amber-100 flex flex-col justify-between">
+    <!-- Vista Previa (Derecha) -->
+    <section class="bg-white p-6 rounded-3xl shadow-xl border-2 border-dina-pinkSoft flex flex-col justify-between">
       <div>
         <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-bold text-stone-900">Resultado Generado por IA</h2>
-          <span class="text-xs bg-stone-100 text-stone-600 px-2.5 py-1 rounded-md font-mono">Render Real-time</span>
+          <h2 class="text-2xl font-bold text-dina-choco font-title">Resultado Mágico</h2>
+          <span class="text-xs bg-dina-pinkSoft text-dina-choco font-bold px-3 py-1 rounded-full">Render con IA</span>
         </div>
 
-        <!-- Contenedor de la Imagen -->
-        <div class="relative w-full aspect-square bg-stone-900 rounded-2xl overflow-hidden shadow-inner flex items-center justify-center border border-stone-200">
+        <!-- Contenedor Imagen -->
+        <div class="relative w-full aspect-square bg-dina-chocoDark rounded-2xl overflow-hidden shadow-inner flex items-center justify-center border-4 border-dina-pinkSoft">
           
-          <!-- Capa de Carga / Spinner -->
-          <div id="loader" class="absolute inset-0 bg-stone-900/90 z-10 flex flex-col items-center justify-center gap-3 text-white transition-opacity duration-300">
-            <i class="fa-solid fa-spinner text-4xl text-amber-500 animate-spin"></i>
-            <p class="text-sm font-medium animate-pulse-fast text-amber-200">La IA está horneando tu render...</p>
+          <!-- Loader -->
+          <div id="loader" class="absolute inset-0 bg-dina-chocoDark/90 z-10 flex flex-col items-center justify-center gap-3 text-white transition-opacity duration-300">
+            <i class="fa-solid fa-cookie text-5xl text-dina-rose animate-spin"></i>
+            <p class="text-base font-title font-bold animate-pulse-fast text-dina-pinkSoft">Creando el diseño para Mi Dulce Dina...</p>
           </div>
 
-          <!-- Imagen Real traída de la API de IA -->
+          <!-- Imagen Generada -->
           <img id="ia-image" src="" alt="Vista previa del postre" class="w-full h-full object-cover transition-opacity duration-500 opacity-0">
         </div>
 
-        <!-- Prompt Usado (Útil para aprender en la tecnicatura) -->
-        <div class="mt-4 p-3 bg-stone-50 rounded-lg border border-stone-200">
-          <p class="text-xs text-stone-400 font-mono mb-1">// Prompt enviado a la API de IA:</p>
-          <p id="prompt-display" class="text-xs text-stone-600 font-mono italic break-words">Cargando prompt...</p>
+        <!-- Prompt -->
+        <div class="mt-4 p-3 bg-dina-cream rounded-xl border border-dina-pinkSoft">
+          <p class="text-xs text-dina-choco/50 font-mono mb-1">// Prompt generado para la IA:</p>
+          <p id="prompt-display" class="text-xs text-dina-choco/80 font-mono italic break-words">Cargando...</p>
         </div>
       </div>
 
-      <!-- Pedir por WhatsApp -->
-      <button id="btn-whatsapp" class="w-full mt-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
-        <i class="fa-brands fa-whatsapp text-xl"></i> Encargar este Postre por WhatsApp
+      <!-- Botón WhatsApp -->
+      <button id="btn-whatsapp" class="w-full mt-6 bg-emerald-500 hover:bg-emerald-600 text-white font-title text-lg font-bold py-4 px-4 rounded-2xl shadow-lg transition duration-200 flex items-center justify-center gap-2">
+        <i class="fa-brands fa-whatsapp text-2xl"></i> Encargar a Mi Dulce Dina por WhatsApp
       </button>
 
     </section>
 
   </main>
 
-  <!-- Script de Lógica -->
+  <!-- Script -->
   <script>
-    // Referencias del DOM
     const tipoSelect = document.getElementById('tipo');
     const tamanoSelect = document.getElementById('tamano');
     const rellenoSelect = document.getElementById('relleno');
@@ -170,66 +209,57 @@
     const btnGenerar = document.getElementById('btn-generar');
     const btnWhatsapp = document.getElementById('btn-whatsapp');
 
-    // Función para construir el Prompt en Inglés (La IA responde mucho mejor en inglés)
     function construirPromptIA() {
-      let promptParts = ["Delicious high-end pastry product photography", "studio light", "4k detail"];
+      let promptParts = ["Artisanal gourmet bakery product photography", "cute aesthetic", "soft pink lighting", "studio lighting", "4k high detail"];
 
-      // Tipo y Cobertura
       if (tipoSelect.value === 'alfajor_maicena') {
-        promptParts.push("traditional Argentine maizena alfajor, soft cornstarch cookies");
+        promptParts.push("traditional Argentine maizena alfajor, delicate cornstarch cookie");
       } else if (tipoSelect.value === 'alfajor_chocolate') {
-        promptParts.push("chocolate covered alfajor, rich cocoa sponge");
+        promptParts.push("gourmet chocolate covered alfajor");
       } else {
-        promptParts.push("gourmet artisanal mini cake cupcake");
+        promptParts.push("gourmet pink bakery mini cake cupcake");
       }
 
-      // Relleno
       if (rellenoSelect.value === 'extra') {
-        promptParts.push("generous thick layer of rich caramel dulce de leche filling");
+        promptParts.push("thick generous caramel dulce de leche layer");
       } else if (rellenoSelect.value === 'triple') {
-        promptParts.push("huge triple layered thick caramel dulce de leche filling spilling on sides");
+        promptParts.push("huge triple layered thick caramel dulce de leche filling");
       } else {
         promptParts.push("caramel dulce de leche filling");
       }
 
-      // Cobertura específica
       if (coberturaSelect.value === 'chocolate_negro') {
-        promptParts.push("coated with glossy dark chocolate glaze");
+        promptParts.push("covered in dark chocolate coating");
       } else if (coberturaSelect.value === 'chocolate_blanco') {
-        promptParts.push("coated with creamy white chocolate glaze");
+        promptParts.push("covered in white chocolate coating");
       } else if (coberturaSelect.value === 'color_rosa') {
-        promptParts.push("coated with cute pink pastry icing glaze");
+        promptParts.push("covered in cute pastel pink bakery glaze");
       }
 
-      // Topping
       if (toppingSelect.value === 'coco') {
-        promptParts.push("edges covered with fine grated coconut flakes");
+        promptParts.push("edges rolled in fine white coconut flakes");
       } else if (toppingSelect.value === 'granas') {
         promptParts.push("decorated with colorful sprinkles");
       } else if (toppingSelect.value === 'nueces') {
         promptParts.push("topped with crushed walnuts");
       } else if (toppingSelect.value === 'oreo') {
-        promptParts.push("topped with crunchy dark chocolate cookie crumbs");
+        promptParts.push("topped with crunchy chocolate cookie crumbs");
       }
 
       return promptParts.join(", ");
     }
 
-    // Función para actualizar Precios y Peso
     function actualizarCalculos() {
       const tamanoOption = tamanoSelect.options[tamanoSelect.selectedIndex];
       const peso = tamanoOption.getAttribute('data-peso');
       let precio = parseInt(tamanoOption.getAttribute('data-precio'));
 
-      // Sumar Relleno
       const rellenoOption = rellenoSelect.options[rellenoSelect.selectedIndex];
       precio += parseInt(rellenoOption.getAttribute('data-precio') || 0);
 
-      // Sumar Cobertura
       if (coberturaSelect.value.includes('chocolate')) precio += 350;
       if (coberturaSelect.value === 'color_rosa') precio += 250;
 
-      // Sumar Topping
       if (toppingSelect.value === 'nueces' || toppingSelect.value === 'oreo') precio += 300;
 
       pesoDisplay.textContent = peso;
@@ -238,24 +268,18 @@
       return precio;
     }
 
-    // Función para llamar a la API Real de IA (Pollinations.ai - Gratuita y sin API key)
     function generarImagenIA() {
-      // 1. Mostrar spinner y ocultar la imagen anterior
       loader.classList.remove('opacity-0', 'pointer-events-none');
       iaImage.classList.add('opacity-0');
 
-      // 2. Armar el prompt y semilla aleatoria para varíar cada vez
       const prompt = construirPromptIA();
       const seed = Math.floor(Math.random() * 1000000);
       promptDisplay.textContent = prompt;
 
-      // 3. Crear URL directo a la API de IA
       const urlIA = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=600&height=600&seed=${seed}&nologo=true`;
 
-      // 4. Asignar la URL a la imagen
       iaImage.src = urlIA;
 
-      // 5. Detectar cuándo termina de cargar la imagen generada
       iaImage.onload = () => {
         loader.classList.add('opacity-0', 'pointer-events-none');
         iaImage.classList.remove('opacity-0');
@@ -263,11 +287,10 @@
 
       iaImage.onerror = () => {
         loader.classList.add('opacity-0', 'pointer-events-none');
-        alert("Hubo un pequeño error de conexión con la IA. Intentá hacer clic en Re-generar.");
+        alert("Hubo un pequeño inconveniente al conectar con el servidor de IA. Reintentá nuevamente.");
       };
     }
 
-    // Eventos de cambios en el formulario
     [tipoSelect, tamanoSelect, rellenoSelect, coberturaSelect, toppingSelect].forEach(element => {
       element.addEventListener('change', () => {
         actualizarCalculos();
@@ -277,24 +300,21 @@
 
     btnGenerar.addEventListener('click', generarImagenIA);
 
-    // Integración con WhatsApp
     btnWhatsapp.addEventListener('click', () => {
       const precio = precioDisplay.textContent;
       const peso = pesoDisplay.textContent;
-      const textoMensaje = `Hola! Quisiera encargar el siguiente postre personalizado:%0A` +
-        `- *Tipo:* ${tipoSelect.options[tipoSelect.selectedIndex].text}%0A` +
+      const textoMensaje = `¡Hola Mi Dulce Dina! 🧁 Quisiera encargar el siguiente pedido personalizado:%0A` +
+        `- *Producto:* ${tipoSelect.options[tipoSelect.selectedIndex].text}%0A` +
         `- *Tamaño:* ${tamanoSelect.options[tamanoSelect.selectedIndex].text} (${peso})%0A` +
         `- *Relleno:* ${rellenoSelect.options[rellenoSelect.selectedIndex].text}%0A` +
         `- *Cobertura:* ${coberturaSelect.options[coberturaSelect.selectedIndex].text}%0A` +
         `- *Topping:* ${toppingSelect.options[toppingSelect.selectedIndex].text}%0A` +
-        `- *Precio estimado:* ${precio}%0A%0A` +
-        `¿Tienen disponibilidad para esta semana?`;
+        `- *Precio Estimado:* ${precio}%0A%0A` +
+        `¿Tienen disponibilidad para esta fecha?`;
 
-      // Abrir WhatsApp Web / App
       window.open(`https://wa.me/?text=${textoMensaje}`, '_blank');
     });
 
-    // Carga Inicial
     actualizarCalculos();
     generarImagenIA();
   </script>
