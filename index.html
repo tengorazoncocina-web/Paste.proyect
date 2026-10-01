@@ -197,7 +197,7 @@
           </button>
         </div>
 
-        <!-- 5. Crea tu propio postre (CORREGIDO) -->
+        <!-- 5. Crea tu propio postre -->
         <div onclick="seleccionarProducto('custom')" class="product-card bg-gradient-to-br from-white to-dina-pinkSoft rounded-3xl p-4 border-2 border-dina-rose cursor-pointer shadow-lg flex flex-col justify-between sm:col-span-2 lg:col-span-2">
           <div class="flex flex-col sm:flex-row gap-4 items-center">
             <div class="w-full sm:w-1/2 h-44 rounded-2xl overflow-hidden border-2 border-dina-rose relative bg-stone-100">
@@ -322,6 +322,9 @@
   </main>
 
   <script>
+    // URL DE TU GOOGLE APPS SCRIPT (Reemplazar por la tuya)
+    const URL_SHEET_SCRIPT = 'https://script.google.com/macros/s/AKfycby-el4yFGTG3t1GbqlrZAHBtuHEay5lmpyymT4bT0FVMK2YRNu7Rwet6XbyD3eaq4zCcw/exec';
+
     const opcionesPorProducto = {
       alfajor: {
         titulo: "Personalizando: Alfajor de Maicena",
@@ -697,20 +700,57 @@
       totalBandejaDisplay.textContent = '$' + totalFinal.toLocaleString('es-AR');
     }
 
-    btnWhatsappFinal.addEventListener('click', () => {
-      let resumen = [];
-      let total = 0;
+    // ENVÍO DUAL: Planilla Google Sheets + Apertura de WhatsApp
+    btnWhatsappFinal.addEventListener('click', async () => {
+      let resumenSimple = [];
+      let detalleCompleto = [];
+      let totalMonto = 0;
+      let cantidadPiezas = 0;
 
       bandeja.forEach((item, idx) => {
-        total += item.precioSubtotal;
-        resumen.push(`*Ítem ${idx + 1}:* ${item.cantidad}x ${item.producto}%0A` +
-          `  - Adicionales/Opciones: ${item.ingredientes.join(', ')}%0A` +
+        totalMonto += item.precioSubtotal;
+        cantidadPiezas += item.cantidad;
+
+        resumenSimple.push(`${item.cantidad}x ${item.producto}`);
+        detalleCompleto.push(`[${item.cantidad}x ${item.producto} -> ${item.ingredientes.join(', ')} ($${item.precioSubtotal})]\n`);
+      });
+
+      const fechaHoraActual = new Date().toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' });
+
+      // Payload para la planilla
+      const payloadSheet = {
+        fechaHora: fechaHoraActual,
+        resumen: resumenSimple.join(', '),
+        detalle: detalleCompleto.join(' | '),
+        cantidadTotal: cantidadPiezas,
+        totalMonto: '$' + totalMonto.toLocaleString('es-AR')
+      };
+
+      // Guardar en la planilla central en segundo plano
+      if (URL_SHEET_SCRIPT && !URL_SHEET_SCRIPT.includes('REEMPLAZAR')) {
+        try {
+          fetch(URL_SHEET_SCRIPT, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payloadSheet)
+          });
+        } catch(e) {
+          console.error("Error guardando registro en planilla:", e);
+        }
+      }
+
+      // Redirigir a WhatsApp
+      let mensajeWA = [];
+      bandeja.forEach((item, idx) => {
+        mensajeWA.push(`*Ítem ${idx + 1}:* ${item.cantidad}x ${item.producto}%0A` +
+          `  - Opciones: ${item.ingredientes.join(', ')}%0A` +
           `  - Subtotal: $${item.precioSubtotal.toLocaleString('es-AR')}`);
       });
 
       const mensaje = `¡Hola Mi Dulce Dina! 🧁 Quisiera encargar el siguiente pedido personalizado:%0A%0A` +
-        resumen.join('%0A%0A') + `%0A%0A` +
-        `*TOTAL GENERAL ESTIMADO:* $${total.toLocaleString('es-AR')}%0A%0A` +
+        mensajeWA.join('%0A%0A') + `%0A%0A` +
+        `*TOTAL GENERAL ESTIMADO:* $${totalMonto.toLocaleString('es-AR')}%0A%0A` +
         `¿Tienen disponibilidad para coordinar la entrega?`;
 
       window.open(`https://wa.me/?text=${mensaje}`, '_blank');
