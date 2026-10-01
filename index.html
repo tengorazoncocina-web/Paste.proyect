@@ -322,8 +322,12 @@
   </main>
 
   <script>
-    // URL DE TU GOOGLE APPS SCRIPT (Reemplazar por la tuya)
+    // URL DE TU GOOGLE APPS SCRIPT
     const URL_SHEET_SCRIPT = 'https://script.google.com/macros/s/AKfycbyoDAjsf3adq_ndQrpHoiTMC89YQueQ0zyBFtPbyd4WpOzlkWybzhf4PMxYMyKJB5xWXQ/exec';
+
+    // NÚMERO DE WHATSAPP DE LA EMPRESA (Ejemplo para Argentina: '5491112345678')
+    // Si lo dejás vacío (''), se abrirá WhatsApp para elegir a qué contacto enviarlo.
+    const NUMERO_WHATSAPP = ''; 
 
     const opcionesPorProducto = {
       alfajor: {
@@ -732,7 +736,7 @@
           fetch(URL_SHEET_SCRIPT, {
             method: 'POST',
             mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(payloadSheet)
           });
         } catch(e) {
@@ -753,7 +757,9 @@
         `*TOTAL GENERAL ESTIMADO:* $${totalMonto.toLocaleString('es-AR')}%0A%0A` +
         `¿Tienen disponibilidad para coordinar la entrega?`;
 
-      window.open(`https://wa.me/?text=${mensaje}`, '_blank');
+      // Si NUMERO_WHATSAPP tiene un valor cargado, abre el chat directo a ese número.
+      const destinoWA = NUMERO_WHATSAPP ? `phone=${NUMERO_WHATSAPP}&text=${mensaje}` : `text=${mensaje}`;
+      window.open(`https://wa.me/?${destinoWA}`, '_blank');
     });
   </script>
 </body>
