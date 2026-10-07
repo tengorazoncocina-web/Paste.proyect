@@ -88,7 +88,7 @@
     </div>
   </header>
 
-  <!-- BANNER DE AVISO DESTACADO -->
+  <!-- BANNER DE AVISO DESTACADO (WHATSAPP CORREGIDO DIRECTAMENTE EN EL HREF) -->
   <div class="bg-amber-300 border-y-4 border-amber-500 text-dina-chocoDark py-5 px-4 shadow-xl relative z-40">
     <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
       <div class="flex items-center gap-4">
@@ -105,7 +105,7 @@
         </div>
       </div>
       
-      <a id="btn-aviso-whatsapp" href="#" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm sm:text-base font-title font-bold px-6 py-3.5 rounded-full transition-all transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl flex-shrink-0 border-2 border-white animate-pulse">
+      <a id="btn-aviso-whatsapp" href="https://wa.me/5491176729395?text=%C2%A1Hola%20Mi%20Dulce%20Dina!%20%F0%9F%A7%81%20Quisiera%20realizar%20una%20consulta%20sobre%20sus%20productos." target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-white text-sm sm:text-base font-title font-bold px-6 py-3.5 rounded-full transition-all transform hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl flex-shrink-0 border-2 border-white animate-pulse">
         <i class="fa-brands fa-whatsapp text-2xl"></i>
         <span>Pedir por WhatsApp</span>
       </a>
@@ -131,3 +131,68 @@
         <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Adicionales Maicena / Lemonie</h4>
         <p>💥 Extra Dulce de Leche: <strong>+$350</strong></p>
         <p>🥥 Coco Rallado / Nueces: <strong>+$250</strong></p>
+        <p>🍋 Glaseado Abundante: <strong>+$300</strong></p>
+      </div>
+      <div>
+        <h4 class="font-title font-bold text-dina-rose mb-2 border-b border-dina-pinkSoft pb-1">Tortas Especiales</h4>
+        <p>🎂 Bizcochuelo Base: <strong>$3.500 / $4.000</strong></p>
+        <p>🍰 Rellenos: <strong>+$1.200 / +$1.500</strong></p>
+        <p>💖 Cobertura / Ganache: <strong>+$1.500 / +$1.800</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-5xl mx-auto px-4 py-8">
+
+    <!-- PASO 1: CATÁLOGO DE PRODUCTOS -->
+    <section id="seccion-catalogo">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold font-title text-dina-choco mb-2">¿Qué te gustaría encargar hoy?</h2>
+        <p class="text-sm text-dina-choco/70 font-medium">Elegí un producto para personalizar sus toppings y adicionales</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- 1. Alfajor de Maicena -->
+        <div onclick="seleccionarProducto('alfajor')" class="product-card bg-white rounded-3xl p-4 border-2 border-dina-pinkSoft cursor-pointer shadow-md flex flex-col justify-between">
+          <div>
+            <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-dina-pinkSoft bg-stone-100">
+              <img src="alfajor.jpg" onError="this.onerror=null;this.src='https://images.unsplash.com/photo-1621236378699-8597faf6a176?q=80&w=600&auto=format&fit=crop';" class="w-full h-full object-cover" alt="Alfajores de Maicena">
+            </div>
+            <div class="flex justify-between items-center mb-1">
+              <h3 class="text-xl font-title font-bold text-dina-choco">Alfajor de Maicena</h3>
+              <span class="text-sm font-title font-bold text-dina-rose bg-dina-pinkSoft px-2.5 py-0.5 rounded-full">$1.200</span>
+            </div>
+            <p class="text-xs text-stone-500 mb-3">Base de tapitas suaves y DDL. Configurá tamaño y toppings adicionales.</p>
+          </div>
+          <button class="w-full bg-dina-pinkSoft hover:bg-dina-rose hover:text-white text-dina-choco font-title font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+            Personalizar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- 2. Brownies -->
+        <div onclick="seleccionarProducto('brownie')" class="product-card bg-white rounded-3xl p-4 border-2 border-dina-pinkSoft cursor-pointer shadow-md flex flex-col justify-between">
+          <div>
+            <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-dina-pinkSoft bg-stone-100">
+              <img src="brownie.jpg" onError="this.onerror=null;this.src='https://images.unsplash.com/photo-1606313564200-e75d5e30476c?q=80&w=600&auto=format&fit=crop';" class="w-full h-full object-cover" alt="Brownies Húmedos">
+            </div>
+            <div class="flex justify-between items-center mb-1">
+              <h3 class="text-xl font-title font-bold text-dina-choco">Brownie Húmedo</h3>
+              <span class="text-sm font-title font-bold text-dina-rose bg-dina-pinkSoft px-2.5 py-0.5 rounded-full">$1.500</span>
+            </div>
+            <p class="text-xs text-stone-500 mb-3">Miga húmeda y corteza craquelada. Sumale nueces, chocolate blanco o DDL.</p>
+          </div>
+          <button class="w-full bg-dina-pinkSoft hover:bg-dina-rose hover:text-white text-dina-choco font-title font-bold py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+            Personalizar <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- 3. Lemonies -->
+        <div onclick="seleccionarProducto('lemonie')" class="product-card bg-white rounded-3xl p-4 border-2 border-dina-pinkSoft cursor-pointer shadow-md flex flex-col justify-between">
+          <div>
+            <div class="w-full h-44 rounded-2xl overflow-hidden mb-4 border border-dina-pinkSoft bg-stone-100">
+              <img src="lemonie.jpg" onError="this.onerror=null;this.src='https://images.unsplash.com/photo-1587314168485-3236d6710814?q=80&w=600&auto=format&fit=crop';" class="w-full h-full object-cover" alt="Lemonies">
+            </div>
+            <div class="flex justify-between items-center mb-1">
+              <h3 class="text-xl font-title font-bold text-dina-choco">Lemonie Cítrico</h3>
+              <span class="text-sm font-title font-bold text-dina-rose bg-dina-pinkSoft px-2
